@@ -13,17 +13,43 @@ import AddExamModal from './components/exams/AddExamModal';
 import { useExams } from './hooks/useExams';
 import { useStudyLog } from './hooks/useStudyLog';
 import { useChatHistory } from './hooks/useChatHistory';
+import { useSocialStudy } from './hooks/useSocialStudy';
+import { getSmartReminders } from './utils/studyInsights';
 
-const defaultProfile = { name: 'Learner', dailyGoalMinutes: 90 };
+const defaultProfile = {
+  name: 'Learner',
+  dailyGoalMinutes: 90,
+  preferredStudyWindow: '18:00 - 20:00',
+  preferredStudyDays: 5,
+  freeTimePreference: 'balanced',
+  reminderMode: 'smart',
+  breakPreference: 10,
+  preferredExplanationLevel: 'exam-ready',
+  syncEnabled: true,
+  notificationsEnabled: false,
+  hFarmModuleEnabled: true,
+  hFarmApps: ['Calendar', 'Learning Hub', 'Attendance'],
+};
+
+const CLOUD_KEY = 'exam_sprint_cloud_snapshot';
+const SYNC_KEY = 'exam_sprint_sync_meta';
+
+const readJson = (key, fallback) => {
+  try {
+    return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+  } catch {
+    return fallback;
+  }
+};
 
 export default function App() {
-  const { exams, addExam, deleteExam, addTopic, updateTopic, markReviewed, deleteTopic, setTopicStatus, setTopicAiContent, sprintPlans, updateSprintPlan } = useExams();
-  const { studyLog, logSession, setStudyLog } = useStudyLog();
+  const { exams, addExam, deleteExam, addTopic, updateTopic, markReviewed, deleteTopic, setTopicStatus, setTopicAiContent, addCustomDefinition, logTopicPerformance, sprintPlans, updateSprintPlan } = useExams();
+  const { studyLog, logSession, logMood, setStudyLog } = useStudyLog();
   const chat = useChatHistory();
 
   const [userProfile, setUserProfile] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('userProfile')) || defaultProfile;
+      return { ...defaultProfile, ...(JSON.parse(localStorage.getItem('userProfile')) || {}) };
     } catch {
       return defaultProfile;
     }
@@ -33,13 +59,28 @@ export default function App() {
   const [addExamOpen, setAddExamOpen] = useState(false);
   const [timerTopic, setTimerTopic] = useState(null);
   const [activeTopic, setActiveTopic] = useState(null);
+  const [isOnline, setIsOnline] = useState(() => window.navigator.onLine);
+  const [syncMeta, setSyncMeta] = useState(() => readJson(SYNC_KEY, { lastSyncedAt: '', source: 'local', status: 'idle' }));
+  const [notificationPermission, setNotificationPermission] = useState(() => window.Notification?.permission || 'default');
 
   const navigate = useNavigate();
   const location = useLocation();
+  const social = useSocialStudy(userProfile.name);
 
   useEffect(() => {
     localStorage.setItem('userProfile', JSON.stringify(userProfile));
   }, [userProfile]);
+
+  useEffect(() => {
+    const onOnline = () => setIsOnline(true);
+    const onOffline = () => setIsOnline(false);
+    window.addEventListener('online', onOnline);
+    window.addEventListener('offline', onOffline);
+    return () => {
+      window.removeEventListener('online', onOnline);
+      window.removeEventListener('offline', onOffline);
+    };
+  }, []);
 
   const topicLookup = useMemo(() => {
     const map = {};
@@ -50,6 +91,72 @@ export default function App() {
     });
     return map;
   }, [exams]);
+
+  const reminders = useMemo(
+    () => getSmartReminders(exams, studyLog, userProfile, isOnline),
+    [exams, studyLog, userProfile, isOnline]
+  );
+
+  const syncPayload = useMemo(
+    () => ({
+      userProfile,
+      exams,
+      studyLog,
+      chatHistory: chat.chatHistory,
+      sprintPlans,
+      socialStudyHub: social.socialState,
+    }),
+    [userProfile, exams, studyLog, chat.chatHistory, sprintPlans, social.socialState]
+  );
+
+  useEffect(() => {
+    if (!userProfile.syncEnabled) return;
+
+    const updatedAt = new Date().toISOString();
+    localStorage.setItem(CLOUD_KEY, JSON.stringify({ ...syncPayload, updatedAt }));
+    const nextMeta = {
+      lastSyncedAt: updatedAt,
+      source: isOnline ? 'cloud-ready local mirror' : 'offline queue',
+      status: isOnline ? 'synced' : 'queued',
+    };
+    setSyncMeta(nextMeta);
+    localStorage.setItem(SYNC_KEY, JSON.stringify(nextMeta));
+  }, [syncPayload, userProfile.syncEnabled, isOnline]);
+
+  useEffect(() => {
+    const onStorage = (event) => {
+      if (event.key === SYNC_KEY && event.newValue) {
+        try {
+          setSyncMeta(JSON.parse(event.newValue));
+        } catch {
+          // Ignore invalid sync payloads.
+        }
+      }
+    };
+
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  useEffect(() => {
+    if (!userProfile.notificationsEnabled || !window.Notification || notificationPermission !== 'granted') return;
+    const today = new Date().toISOString().slice(0, 10);
+    const lastShown = localStorage.getItem('exam_sprint_last_notification');
+    if (!reminders.length || lastShown === today) return;
+
+    const topReminder = reminders[0];
+    new window.Notification(topReminder.title, { body: topReminder.detail });
+    localStorage.setItem('exam_sprint_last_notification', today);
+  }, [reminders, userProfile.notificationsEnabled, notificationPermission]);
+
+  const enableNotifications = async () => {
+    if (!window.Notification) return;
+    const permission = await window.Notification.requestPermission();
+    setNotificationPermission(permission);
+    if (permission === 'granted') {
+      setUserProfile((prev) => ({ ...prev, notificationsEnabled: true }));
+    }
+  };
 
   useEffect(() => {
     const handler = (e) => {
@@ -85,6 +192,7 @@ export default function App() {
     setUserProfile,
     studyLog,
     logSession,
+    logMood,
     chat,
     addExam,
     deleteExam,
@@ -94,6 +202,8 @@ export default function App() {
     deleteTopic,
     setTopicStatus,
     setTopicAiContent,
+    addCustomDefinition,
+    logTopicPerformance,
     sprintPlans,
     updateSprintPlan,
     activeTopic,
@@ -101,27 +211,35 @@ export default function App() {
     openTimerForTopic: (topic) => setTimerTopic(topic),
     topicLookup,
     setStudyLog,
+    social,
+    reminders,
+    isOnline,
+    syncMeta,
+    notificationPermission,
+    enableNotifications,
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex min-h-screen overflow-hidden">
       <Sidebar />
       {navOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 md:hidden" onClick={() => setNavOpen(false)}>
-          <div className="h-full w-64" onClick={(e) => e.stopPropagation()}>
+          <div className="h-full" onClick={(e) => e.stopPropagation()}>
             <Sidebar mobile onNavigate={() => setNavOpen(false)} />
           </div>
         </div>
       )}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden">
         <TopBar
           onToggleNav={() => setNavOpen((v) => !v)}
           onOpenAddExam={() => setAddExamOpen(true)}
           onOpenTimer={() => setTimerTopic(activeTopic)}
           activeTopicName={activeTopic?.name}
+          isOnline={isOnline}
+          syncMeta={syncMeta}
         />
 
-        <div className="mx-auto max-w-7xl px-4 py-5 md:px-6">
+        <div className="page-shell">
           <Routes>
             <Route path="/" element={<Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
             <Route path="/exams" element={<ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />

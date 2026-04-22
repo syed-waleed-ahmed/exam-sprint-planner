@@ -10,7 +10,20 @@ import ExplainTab from './ExplainTab';
 
 const tabs = ['Chat', 'Flashcards', 'Quiz', 'Mindmap', 'Explain'];
 
-export default function AICompanion({ exams, activeTopic, setActiveTopic, setTopicStatus, setTopicAiContent, chat, logSession }) {
+export default function AICompanion({
+  exams,
+  activeTopic,
+  setActiveTopic,
+  setTopicStatus,
+  setTopicAiContent,
+  addCustomDefinition,
+  logTopicPerformance,
+  chat,
+  logSession,
+  studyLog,
+  userProfile,
+  social,
+}) {
   const [tab, setTab] = useState('Chat');
   const [query, setQuery] = useState('');
 
@@ -40,11 +53,11 @@ export default function AICompanion({ exams, activeTopic, setActiveTopic, setTop
   };
 
   return (
-    <section className="grid gap-4 lg:grid-cols-[340px_1fr]">
+    <section className="grid gap-4 xl:grid-cols-[340px_minmax(0,1fr)]">
       <TopicSelector exams={exams} activeTopic={topic} onSelect={setActiveTopic} query={query} onQuery={setQuery} />
 
       <div className="glass-card p-4">
-        <header className="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <header className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-xl font-bold">{topic.name}</h2>
             <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
@@ -59,20 +72,30 @@ export default function AICompanion({ exams, activeTopic, setActiveTopic, setTop
           }} />
         </header>
 
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="mb-4 flex gap-2 overflow-x-auto pb-1">
           {tabs.map((t) => (
-            <button key={t} className={`rounded-full px-3 py-1 text-sm ${tab === t ? 'bg-primary text-white' : 'bg-slate-700/60 text-muted'}`} onClick={() => setTab(t)}>
+            <button key={t} className={`shrink-0 rounded-full px-3 py-1 text-sm ${tab === t ? 'bg-primary text-white' : 'bg-slate-700/60 text-muted'}`} onClick={() => setTab(t)}>
               {t}
             </button>
           ))}
         </div>
 
         {tab === 'Chat' && <ChatTab topic={topic} chat={chat} missingKey={missingKey} />}
-        {tab === 'Flashcards' && <FlashcardTab topic={topic} onSave={saveAiContent} missingKey={missingKey} />}
+        {tab === 'Flashcards' && (
+          <FlashcardTab
+            topic={topic}
+            onSave={saveAiContent}
+            social={social}
+            userProfile={userProfile}
+            addCustomDefinition={(definition) => addCustomDefinition(topic.examId, topic.id, definition)}
+            missingKey={missingKey}
+          />
+        )}
         {tab === 'Quiz' && (
           <QuizTab
             topic={topic}
             onSave={saveAiContent}
+            onLogPerformance={(kind, score) => logTopicPerformance(topic.examId, topic.id, kind, score)}
             onUpdateStatusFromQuiz={handleStatus}
             onLogQuiz={(score) =>
               logSession({
@@ -86,8 +109,18 @@ export default function AICompanion({ exams, activeTopic, setActiveTopic, setTop
             missingKey={missingKey}
           />
         )}
-        {tab === 'Mindmap' && <MindmapTab topic={topic} onSave={saveAiContent} missingKey={missingKey} />}
-        {tab === 'Explain' && <ExplainTab topic={topic} onSave={saveAiContent} onSetStatus={handleStatus} missingKey={missingKey} />}
+        {tab === 'Mindmap' && <MindmapTab topic={topic} onSave={saveAiContent} setActiveTab={setTab} missingKey={missingKey} />}
+        {tab === 'Explain' && (
+          <ExplainTab
+            topic={topic}
+            onSave={saveAiContent}
+            onSetStatus={handleStatus}
+            addCustomDefinition={(definition) => addCustomDefinition(topic.examId, topic.id, definition)}
+            studyLog={studyLog}
+            userProfile={userProfile}
+            missingKey={missingKey}
+          />
+        )}
       </div>
     </section>
   );

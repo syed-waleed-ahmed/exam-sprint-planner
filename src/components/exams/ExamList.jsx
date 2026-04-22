@@ -6,7 +6,7 @@ export default function ExamList({ exams, deleteExam, addTopic, deleteTopic, upd
 
   return (
     <section className="space-y-4">
-      <header className="flex items-end justify-between">
+      <header className="section-header">
         <div>
           <h2 className="text-2xl font-bold">My Exams</h2>
           <p className="text-sm text-muted">Track every exam, topic, and confidence level in one place.</p>

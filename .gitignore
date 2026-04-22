@@ -29,5 +29,15 @@ Thumbs.db
 # Vite cache
 .vite/
 
-# Graphify outputs
+# Legacy Graphify output at repo root
 graphify-out/
+
+# Track canonical Graphify artifacts generated from src/,
+# but ignore cache and transient internals.
+src/graphify-out/cache/
+src/graphify-out/memory/
+src/graphify-out/.graphify*
+!src/graphify-out/
+!src/graphify-out/GRAPH_REPORT.md
+!src/graphify-out/graph.json
+!src/graphify-out/graph.html

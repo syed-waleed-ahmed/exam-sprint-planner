@@ -23,7 +23,7 @@ function TopicChip({ topic }) {
 
 export default function TimelineView({ blocks, topicMap }) {
   return (
-    <div className="flex gap-3 overflow-x-auto pb-2">
+    <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3">
       {blocks.map((block) => (
         <SprintBlock key={block.id} block={block} topicMap={topicMap}>
           {block.topics.length === 0 ? (

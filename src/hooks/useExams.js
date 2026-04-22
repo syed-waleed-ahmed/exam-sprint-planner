@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { calculateExamReadiness } from '../utils/readiness';
 import { dateISO } from '../utils/dateHelpers';
+import { sanitizeTextInput, safeTopicPayload } from '../utils/security';
 
 const STORAGE_KEY = 'exams';
 const SPRINT_KEY = 'sprint_plans';
@@ -39,8 +40,8 @@ export function useExams() {
   const addExam = (examInput) => {
     const exam = {
       id: uid(),
-      name: examInput.name,
-      subject: examInput.subject,
+      name: sanitizeTextInput(examInput.name, 120),
+      subject: sanitizeTextInput(examInput.subject, 80),
       examDate: examInput.examDate,
       importanceLevel: examInput.importanceLevel,
       topics: [],
@@ -60,16 +61,25 @@ export function useExams() {
   const addTopic = (examId, name, difficulty = 2) => {
     const topic = {
       id: uid(),
-      name,
+      name: sanitizeTextInput(name, 120),
       difficulty,
       status: 'not_started',
       lastReviewed: '',
       notes: '',
+      customDefinitions: [],
+      performance: {
+        quizScores: [],
+        practiceExamScores: [],
+      },
       aiContent: {
         flashcards: [],
         quiz: [],
         mindmap: null,
         summary: '',
+        explanationLevels: {},
+        practiceExam: [],
+        reviewSchedule: [],
+        onDemandQuestions: [],
       },
     };
     setExams((prev) =>
@@ -86,10 +96,11 @@ export function useExams() {
           topics: exam.topics.map((topic) => {
             if (topic.id !== topicId) return topic;
             const next = typeof updater === 'function' ? updater(topic) : { ...topic, ...updater };
+            const sanitizedNext = safeTopicPayload(next);
             if (topic.status !== 'confident' && next.status === 'confident') {
               confetti({ particleCount: 80, spread: 55, origin: { y: 0.65 } });
             }
-            return next;
+            return sanitizedNext;
           }),
         };
       })
@@ -122,6 +133,23 @@ export function useExams() {
     }));
   };
 
+  const addCustomDefinition = (examId, topicId, definition) => {
+    updateTopic(examId, topicId, (topic) => ({
+      ...topic,
+      customDefinitions: [...(topic.customDefinitions || []), { id: uid(), ...definition }],
+    }));
+  };
+
+  const logTopicPerformance = (examId, topicId, kind, score) => {
+    updateTopic(examId, topicId, (topic) => ({
+      ...topic,
+      performance: {
+        ...(topic.performance || {}),
+        [kind]: [...(topic.performance?.[kind] || []), { score, date: new Date().toISOString() }],
+      },
+    }));
+  };
+
   const updateSprintPlan = (examId, blocks) => {
     setSprintPlans((prev) => ({ ...prev, [examId]: blocks }));
   };
@@ -136,6 +164,8 @@ export function useExams() {
     deleteTopic,
     setTopicStatus,
     setTopicAiContent,
+    addCustomDefinition,
+    logTopicPerformance,
     sprintPlans,
     updateSprintPlan,
   };

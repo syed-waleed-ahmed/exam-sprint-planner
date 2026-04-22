@@ -16,7 +16,7 @@ export default function TopicSelector({ exams, activeTopic, onSelect, query, onQ
     <div className="glass-card p-4">
       <input
         id="topic-search"
-        className="w-full rounded-elem border border-white/10 bg-slate-800 px-3 py-2 text-sm"
+        className="input-base w-full"
         placeholder="Search topics..."
         value={query}
         onChange={(e) => onQuery(e.target.value)}

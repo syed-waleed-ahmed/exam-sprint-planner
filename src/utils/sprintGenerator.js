@@ -93,6 +93,9 @@ export const generateSprintBlocks = (exam, options = {}) => {
   }
 
   const topics = [...(exam.topics || [])].sort((a, b) => {
+    const aPriority = (a.priorityScore || 0);
+    const bPriority = (b.priorityScore || 0);
+    if (bPriority !== aPriority) return bPriority - aPriority;
     if ((b.difficulty || 2) !== (a.difficulty || 2)) return (b.difficulty || 2) - (a.difficulty || 2);
     if ((statusPriority[b.status] || 0) !== (statusPriority[a.status] || 0)) {
       return (statusPriority[b.status] || 0) - (statusPriority[a.status] || 0);
@@ -103,18 +106,22 @@ export const generateSprintBlocks = (exam, options = {}) => {
   });
 
   const plannedHours = Array.from({ length: planningBlockCount }, () => 0);
-  const weeklyTargetHours = Math.max(((options.dailyGoalMinutes || 90) * 7) / 60, 3);
+  const preferredStudyDays = Math.min(Math.max(options.preferredStudyDays || 5, 3), 7);
+  const weeklyTargetHours = Math.max(((options.dailyGoalMinutes || 90) * preferredStudyDays) / 60, 3);
+  const freeTimeBias = options.freeTimePreference === 'light' ? 0.8 : options.freeTimePreference === 'intense' ? 1.15 : 1;
+  const adjustedTargetHours = weeklyTargetHours * freeTimeBias;
 
   topics.forEach((topic) => {
     const topicHours = estimateTopicHours(topic.difficulty || 2);
+    const priorityBoost = Math.min((topic.priorityScore || 0) * 0.08, 1.8);
 
     let bestIdx = 0;
     let bestScore = Number.POSITIVE_INFINITY;
     for (let i = 0; i < planningBlockCount; i += 1) {
       const load = plannedHours[i];
-      const latenessPenalty = i * 0.35;
+      const latenessPenalty = Math.max(i * 0.35 - priorityBoost, 0);
       const lastPlanningWeekPenalty = i === planningBlockCount - 1 && planningBlockCount > 1 ? 1 : 0;
-      const overloadPenalty = load > weeklyTargetHours ? (load - weeklyTargetHours) * 0.7 : 0;
+      const overloadPenalty = load > adjustedTargetHours ? (load - adjustedTargetHours) * 0.7 : 0;
       const missedDaysPenalty = missedDays > 0 ? (i / planningBlockCount) * Math.min(missedDays * 0.15, 1.2) : 0;
       const score = load + latenessPenalty + lastPlanningWeekPenalty + overloadPenalty + missedDaysPenalty;
       if (score < bestScore) {
@@ -125,6 +132,20 @@ export const generateSprintBlocks = (exam, options = {}) => {
 
     blocks[bestIdx].topics.push(topic.id);
     plannedHours[bestIdx] += topicHours;
+  });
+
+  blocks.forEach((block, index) => {
+    block.capacityHours = Math.round((adjustedTargetHours + Number.EPSILON) * 10) / 10;
+    block.focusMode =
+      index === 0 && missedDays > 0
+        ? 'Recovery sprint'
+        : block.isRevision
+          ? 'Revision and mocks'
+          : options.freeTimePreference === 'light'
+            ? 'Compact sessions'
+            : options.freeTimePreference === 'intense'
+              ? 'High-output week'
+              : 'Balanced cadence';
   });
 
   return blocks;

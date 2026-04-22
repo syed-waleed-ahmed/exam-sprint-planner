@@ -6,7 +6,7 @@ export default function SprintBlock({ block, topicMap, children }) {
   const stats = blockStats(block, topicMap);
 
   return (
-    <div ref={setNodeRef} className={`min-w-[260px] rounded-card border p-3 ${isOver ? 'border-secondary bg-secondary/10' : 'border-white/10 bg-slate-800/40'}`}>
+    <div ref={setNodeRef} className={`min-w-[280px] snap-start rounded-card border p-3 sm:min-w-[320px] ${isOver ? 'border-secondary bg-secondary/10' : 'border-white/10 bg-slate-800/40'}`}>
       <h4 className="font-semibold">{block.label}</h4>
       <div className="mt-2 space-y-2">{children}</div>
       <div className="mt-3 text-xs text-muted">

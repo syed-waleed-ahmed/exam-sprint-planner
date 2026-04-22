@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { marked } from 'marked';
+import { safeMarkdownSource, sanitizeMultilineInput } from '../../utils/security';
 
 const starters = [
   'Explain this topic simply',
@@ -16,15 +17,14 @@ export default function ChatTab({ topic, chat, missingKey }) {
   const messagesEndRef = useRef(null);
 
   const renderAssistant = (content) => {
-    const safe = content || '';
+    const safe = safeMarkdownSource(content);
     return marked.parse(safe);
   };
 
   useEffect(() => {
-    // Clear stale broken messages whenever topic changes.
-    setMessages([]);
-    setConversationHistory([]);
-    chat.setTopicMessages(topic.id, []);
+    const topicMessages = chat.getTopicMessages(topic.id);
+    setMessages(topicMessages);
+    setConversationHistory(topicMessages.map((message) => ({ role: message.role, content: message.content })));
   }, [topic.id]);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function ChatTab({ topic, chat, missingKey }) {
   }
 
   return (
-    <div className="flex h-[65vh] flex-col">
+    <div className="flex min-h-[60svh] flex-col xl:h-[65vh]">
       <div className="flex-1 space-y-2 overflow-y-auto rounded-elem border border-white/10 bg-slate-900/40 p-3">
         {messages.length === 0 ? (
           <div className="space-y-2">
@@ -130,7 +130,7 @@ export default function ChatTab({ topic, chat, missingKey }) {
           </div>
         ) : (
           messages.map((msg, idx) => (
-            <div key={idx} className={`max-w-[88%] rounded-elem p-3 text-sm ${msg.role === 'user' ? 'ml-auto bg-primary/25' : 'bg-slate-700/40'}`}>
+            <div key={idx} className={`max-w-full rounded-elem p-3 text-sm sm:max-w-[88%] ${msg.role === 'user' ? 'ml-auto bg-primary/25' : 'bg-slate-700/40'}`}>
               {msg.role === 'assistant' ? (
                 <div className="chat-markdown prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: renderAssistant(msg.content) }} />
               ) : (
@@ -151,9 +151,9 @@ export default function ChatTab({ topic, chat, missingKey }) {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className="mt-2 flex gap-2">
-        <input
-          className="flex-1 rounded-elem border border-white/10 bg-slate-800 px-3 py-2"
+      <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+        <textarea
+          className="input-base min-h-[52px] flex-1 resize-y"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => {
@@ -161,18 +161,19 @@ export default function ChatTab({ topic, chat, missingKey }) {
               e.preventDefault();
               e.stopPropagation();
               if (!draft.trim() || isLoading) return;
-              const msg = draft;
+              const msg = sanitizeMultilineInput(draft, 1200);
               setDraft('');
               sendMessage(msg);
             }
           }}
           placeholder="Ask anything about this topic..."
+          rows={2}
         />
         <button
-          className="rounded-elem bg-primary px-3 py-2 text-sm font-semibold"
+          className="btn-primary sm:w-auto"
           onClick={() => {
-            if (!draft.trim()) return;
-            const msg = draft;
+            const msg = sanitizeMultilineInput(draft, 1200);
+            if (!msg) return;
             setDraft('');
             sendMessage(msg);
           }}

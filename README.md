@@ -1,11 +1,17 @@
 # Exam Sprint Planner
 
-A standalone single-page study planning app built with React 18 + Tailwind CSS.
+A local-first React study planner for exam preparation, adaptive sprint scheduling, and AI-guided revision.
 
-It combines:
-- Sprint planning and revision tracking
-- AI-assisted study modes (Chat, Flashcards, Quiz, Mindmap, Explain)
-- Local-first persistence with `localStorage`
+## What It Does
+
+The app now combines:
+- Smart sprint generation based on exam deadlines, missed study days, free-time preferences, and high-yield topics
+- AI study workflows for chat, flashcards, quizzes, practice exams, mindmaps, and layered explanations
+- Personalized recommendations driven by study history, streaks, quiz performance, and review spacing
+- Progress analytics with badges, comparative charts, mood tracking, and efficiency feedback
+- Collaboration features for study groups, shared resources, peer reviews, leaderboards, and challenges
+- Offline-friendly local persistence with sync-pack export/import and cloud-mirror metadata in `localStorage`
+- H-Farm-oriented integration settings for exposing the planner inside a wider academic dashboard
 
 ## Tech Stack
 
@@ -14,18 +20,19 @@ It combines:
 - Vite
 - Tailwind CSS
 - Recharts
-- @dnd-kit/core
-- date-fns
-- lucide-react
-- marked
-- html2canvas
-- canvas-confetti
+- `@dnd-kit/core`
+- `date-fns`
+- `lucide-react`
+- `marked`
+- `html2canvas`
+- `canvas-confetti`
 
 ## Project Structure
 
-- `src/components/` UI pages and feature components
-- `src/hooks/` data + API hooks
-- `src/utils/` readiness, sprint generation, date and prioritization logic
+- `src/components/` feature UI for dashboard, planner, AI companion, stats, settings, exams, and timer flows
+- `src/hooks/` local persistence hooks, AI API wrapper, chat history, and social study state
+- `src/utils/` sprint generation, readiness, prioritization, date helpers, and study insight utilities
+- `src/graphify-out/` Graphify architecture artifacts generated from the `src/` tree
 
 ## Prerequisites
 
@@ -39,7 +46,7 @@ npm install
 npm run dev
 ```
 
-App runs at:
+Default dev URL:
 - `http://localhost:5173/`
 
 ## Build
@@ -49,57 +56,108 @@ npm run build
 npm run preview
 ```
 
+## Production Readiness
+
+This repo is now prepared for production deployment with:
+- Responsive layouts hardened for mobile, tablet, and desktop breakpoints
+- Shared UI primitives (`input`, `button`, `card`) to keep pages modular and consistent
+- Input sanitization helpers for user-entered fields and persisted payloads
+- Defensive import validation for backup restore flow
+- Safer markdown rendering path for AI-generated assistant/explanation content
+- Regenerated architecture graph (`graphify update src`) aligned with the current codebase
+
+Current pre-deploy check:
+- `npm run build` passes successfully
+- Vite reports a large bundle warning for the main chunk; app works, but code-splitting is recommended for further optimization
+
 ## Persistence Model
 
-All app data is stored in browser `localStorage`:
+The app is local-first and stores data in browser `localStorage`.
+
+Primary keys:
 - `userProfile`
 - `exams`
 - `studyLog`
 - `chatHistory`
 - `sprint_plans`
+- `socialStudyHub`
+- `exam_sprint_cloud_snapshot`
+- `exam_sprint_sync_meta`
 - `openai_api_key`
 
-## OpenAI API Setup
+## AI Setup
 
-1. Open **Settings** in the app.
-2. Paste your OpenAI API key in the API key field.
+1. Open **Settings**.
+2. Paste your OpenAI API key.
 3. Save.
 
-The app calls:
+Current API configuration in the app:
 - Endpoint: `https://api.openai.com/v1/chat/completions`
 - Model: `gpt-4o`
 
 No backend is required.
 
+## Key Features
+
+### Personalized planning
+- Adaptive sprint generation with missed-day recovery
+- Topic prioritization using urgency, confidence, and recent performance
+- Study efficiency suggestions and smart reminders
+
+### AI study companion
+- Topic chat
+- Flashcards with custom notes/definitions
+- Quizzes and full-length practice exams
+- Explanation depth modes
+- Interactive mindmaps with study-mode links
+- AI-driven review schedules and extra exam-style questions
+
+### Collaboration and motivation
+- Study groups and scheduled group sprints
+- Shared flashcard decks/resources
+- Peer-review metadata
+- Leaderboards and challenge cards
+- Achievement badges and streak tracking
+
+### Analytics
+- Readiness tracking
+- Subject and daily activity charts
+- Comparative long-term trend charts
+- Mood-to-efficiency correlation
+
 ## Keyboard Shortcuts
 
-- `T` -> jump to Today's Focus
-- `A` -> open Add Exam modal
-- `/` -> focus topic search in AI Companion
-- `Esc` -> close open modal
-
-## Notes
-
-- AI generation gracefully handles missing keys and API errors.
-- Flashcards/Quiz/Mindmap/Explain outputs are cached per topic in `localStorage`.
-- Focus timer updates confidence and logs sessions.
+- `T` jumps to Today’s Focus
+- `A` opens the Add Exam modal
+- `/` focuses topic search in AI Companion
+- `Esc` closes open overlays
 
 ## Graphify
 
-Graph outputs are generated under `graphify-out/` (ignored by git).
+Graphify is generated from the `src/` tree so the architecture view reflects the app code directly.
 
-Recommended run commands:
+Regenerate it with:
 
 ```bash
-python -m pip install graphifyy
-/graphify src
+graphify update src
 ```
 
-Generated artifacts:
-- `graphify-out/GRAPH_REPORT.md`
-- `graphify-out/graph.json`
-- `graphify-out/graph.html`
+Tracked Graphify artifacts:
+- `src/graphify-out/GRAPH_REPORT.md`
+- `src/graphify-out/graph.json`
+- `src/graphify-out/graph.html`
+
+Ignored Graphify cache/noise:
+- `src/graphify-out/cache/`
+- legacy root-level `graphify-out/`
+
+## Notes
+
+- The app is designed to remain usable offline.
+- Sync is local-first and export/import friendly; no remote backend is included.
+- AI generation handles missing API keys and request failures gracefully.
+- For stricter enterprise deployments, add CSP/security headers at hosting level and route-level code splitting in Vite.
 
 ## License
 
-Private/internal use unless changed by repository owner.
+Private/internal use unless changed by the repository owner.
