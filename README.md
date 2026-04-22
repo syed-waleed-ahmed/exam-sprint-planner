@@ -56,6 +56,16 @@ npm run build
 npm run preview
 ```
 
+## Deploy to GitHub Pages
+
+This repo includes a workflow at `.github/workflows/deploy-pages.yml` that deploys on every push to `main`.
+
+One-time setup in GitHub:
+1. Open repository **Settings** -> **Pages**.
+2. Set **Source** to **GitHub Actions**.
+
+After that, push to `main` and the site will be published automatically.
+
 ## Production Readiness
 
 This repo is now prepared for production deployment with:
