@@ -1,0 +1,142 @@
+import { useEffect, useMemo, useState } from 'react';
+import confetti from 'canvas-confetti';
+import { calculateExamReadiness } from '../utils/readiness';
+import { dateISO } from '../utils/dateHelpers';
+
+const STORAGE_KEY = 'exams';
+const SPRINT_KEY = 'sprint_plans';
+
+const uid = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+const initialExams = [];
+
+const readStorage = (key, fallback) => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+export function useExams() {
+  const [exams, setExams] = useState(() => readStorage(STORAGE_KEY, initialExams));
+  const [sprintPlans, setSprintPlans] = useState(() => readStorage(SPRINT_KEY, {}));
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(exams));
+  }, [exams]);
+
+  useEffect(() => {
+    localStorage.setItem(SPRINT_KEY, JSON.stringify(sprintPlans));
+  }, [sprintPlans]);
+
+  const examsWithReadiness = useMemo(
+    () => exams.map((exam) => ({ ...exam, readiness: calculateExamReadiness(exam) })),
+    [exams]
+  );
+
+  const addExam = (examInput) => {
+    const exam = {
+      id: uid(),
+      name: examInput.name,
+      subject: examInput.subject,
+      examDate: examInput.examDate,
+      importanceLevel: examInput.importanceLevel,
+      topics: [],
+    };
+    setExams((prev) => [...prev, exam]);
+  };
+
+  const deleteExam = (examId) => {
+    setExams((prev) => prev.filter((exam) => exam.id !== examId));
+    setSprintPlans((prev) => {
+      const next = { ...prev };
+      delete next[examId];
+      return next;
+    });
+  };
+
+  const addTopic = (examId, name, difficulty = 2) => {
+    const topic = {
+      id: uid(),
+      name,
+      difficulty,
+      status: 'not_started',
+      lastReviewed: '',
+      notes: '',
+      aiContent: {
+        flashcards: [],
+        quiz: [],
+        mindmap: null,
+        summary: '',
+      },
+    };
+    setExams((prev) =>
+      prev.map((exam) => (exam.id === examId ? { ...exam, topics: [...exam.topics, topic] } : exam))
+    );
+  };
+
+  const updateTopic = (examId, topicId, updater) => {
+    setExams((prev) =>
+      prev.map((exam) => {
+        if (exam.id !== examId) return exam;
+        return {
+          ...exam,
+          topics: exam.topics.map((topic) => {
+            if (topic.id !== topicId) return topic;
+            const next = typeof updater === 'function' ? updater(topic) : { ...topic, ...updater };
+            if (topic.status !== 'confident' && next.status === 'confident') {
+              confetti({ particleCount: 80, spread: 55, origin: { y: 0.65 } });
+            }
+            return next;
+          }),
+        };
+      })
+    );
+  };
+
+  const markReviewed = (examId, topicId) => {
+    updateTopic(examId, topicId, (topic) => ({ ...topic, lastReviewed: dateISO(), status: topic.status === 'not_started' ? 'in_progress' : topic.status }));
+  };
+
+  const deleteTopic = (examId, topicId) => {
+    setExams((prev) =>
+      prev.map((exam) =>
+        exam.id === examId ? { ...exam, topics: exam.topics.filter((topic) => topic.id !== topicId) } : exam
+      )
+    );
+  };
+
+  const setTopicStatus = (examId, topicId, status) => {
+    updateTopic(examId, topicId, { status, lastReviewed: dateISO() });
+  };
+
+  const setTopicAiContent = (examId, topicId, key, value) => {
+    updateTopic(examId, topicId, (topic) => ({
+      ...topic,
+      aiContent: {
+        ...topic.aiContent,
+        [key]: value,
+      },
+    }));
+  };
+
+  const updateSprintPlan = (examId, blocks) => {
+    setSprintPlans((prev) => ({ ...prev, [examId]: blocks }));
+  };
+
+  return {
+    exams: examsWithReadiness,
+    addExam,
+    deleteExam,
+    addTopic,
+    updateTopic,
+    markReviewed,
+    deleteTopic,
+    setTopicStatus,
+    setTopicAiContent,
+    sprintPlans,
+    updateSprintPlan,
+  };
+}
