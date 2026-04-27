@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import confetti from 'canvas-confetti';
+import { isValid, parseISO, startOfDay } from 'date-fns';
 import { calculateExamReadiness } from '../utils/readiness';
 import { dateISO } from '../utils/dateHelpers';
 import { sanitizeTextInput, safeTopicPayload } from '../utils/security';
@@ -13,6 +14,12 @@ const uid = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 const initialExams = [];
 
 const readStorage = (key, fallback) => safeGetJson(key, fallback, `exams:read:${key}`);
+const parseDateInput = (isoDate) => parseISO(`${isoDate}T00:00:00`);
+const isValidExamDateInput = (examDate) => {
+  if (!examDate) return false;
+  const parsed = parseDateInput(examDate);
+  return isValid(parsed) && startOfDay(parsed) >= startOfDay(new Date());
+};
 
 export function useExams() {
   const [exams, setExams] = useState(() => readStorage(STORAGE_KEY, initialExams));
@@ -26,12 +33,26 @@ export function useExams() {
     safeSetJson(SPRINT_KEY, sprintPlans, 'sprints:save');
   }, [sprintPlans]);
 
+  useEffect(() => {
+    const onStorage = (event) => {
+      if (event.key === STORAGE_KEY) {
+        setExams(readStorage(STORAGE_KEY, initialExams));
+      }
+      if (event.key === SPRINT_KEY) {
+        setSprintPlans(readStorage(SPRINT_KEY, {}));
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   const examsWithReadiness = useMemo(
     () => exams.map((exam) => ({ ...exam, readiness: calculateExamReadiness(exam) })),
     [exams]
   );
 
   const addExam = (examInput) => {
+    if (!isValidExamDateInput(examInput.examDate)) return;
     const exam = {
       id: uid(),
       name: sanitizeTextInput(examInput.name, 120),
@@ -52,11 +73,12 @@ export function useExams() {
     });
   };
 
-  const addTopic = (examId, name, difficulty = 2) => {
+  const addTopic = (examId, name, difficulty = 2, importanceLevel = 3) => {
     const topic = {
       id: uid(),
       name: sanitizeTextInput(name, 120),
       difficulty,
+      importanceLevel,
       status: 'not_started',
       lastReviewed: '',
       notes: '',

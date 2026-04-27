@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import PomodoroRing from './PomodoroRing';
 
 const TOTAL = 25 * 60;
@@ -7,25 +7,80 @@ export default function FocusTimer({ topic, onClose, onStatusUpdate, onLog, setA
   const [secondsLeft, setSecondsLeft] = useState(TOTAL);
   const [running, setRunning] = useState(false);
   const [done, setDone] = useState(false);
+  const onLogRef = useRef(onLog);
+  const endAtRef = useRef(null);
+  const loggedCompletionRef = useRef(false);
+
+  useEffect(() => {
+    onLogRef.current = onLog;
+  }, [onLog]);
+
+  useEffect(() => {
+    setSecondsLeft(TOTAL);
+    setRunning(false);
+    setDone(false);
+    endAtRef.current = null;
+    loggedCompletionRef.current = false;
+  }, [topic?.id]);
 
   useEffect(() => {
     if (!running) return;
     const id = setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(id);
-          setRunning(false);
-          setDone(true);
-          onLog(25, 'pomodoro');
-          const beep = new Audio('data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgAEABAAZGF0YQAAAAA=');
-          beep.play().catch(() => {});
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+      const endAt = endAtRef.current;
+      if (!endAt) return;
+      const remaining = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
+      setSecondsLeft(remaining);
+
+      if (remaining > 0) return;
+
+      setRunning(false);
+      setDone(true);
+      endAtRef.current = null;
+      if (!loggedCompletionRef.current) {
+        loggedCompletionRef.current = true;
+        onLogRef.current(25, 'pomodoro');
+        const beep = new Audio('data:audio/wav;base64,UklGRhQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgAEABAAZGF0YQAAAAA=');
+        beep.play().catch(() => {});
+      }
+    }, 250);
     return () => clearInterval(id);
   }, [running]);
+
+  const startTimer = () => {
+    if (secondsLeft <= 0) {
+      setSecondsLeft(TOTAL);
+      setDone(false);
+      loggedCompletionRef.current = false;
+      endAtRef.current = Date.now() + TOTAL * 1000;
+      setRunning(true);
+      return;
+    }
+    endAtRef.current = Date.now() + secondsLeft * 1000;
+    setRunning(true);
+  };
+
+  const pauseTimer = () => {
+    const endAt = endAtRef.current;
+    if (endAt) {
+      setSecondsLeft(Math.max(0, Math.ceil((endAt - Date.now()) / 1000)));
+    }
+    endAtRef.current = null;
+    setRunning(false);
+  };
+
+  const resetTimer = () => {
+    endAtRef.current = null;
+    loggedCompletionRef.current = false;
+    setSecondsLeft(TOTAL);
+    setRunning(false);
+    setDone(false);
+  };
+
+  const skipTimer = () => {
+    endAtRef.current = null;
+    setRunning(false);
+    setDone(true);
+  };
 
   const confidenceButtons = useMemo(
     () => [
@@ -45,15 +100,15 @@ export default function FocusTimer({ topic, onClose, onStatusUpdate, onLog, setA
             <h3 className="text-xl font-bold">Focus Timer</h3>
             <p className="text-sm text-muted">{topic.name}</p>
           </div>
-          <button className="rounded-elem border border-white/20 px-3 py-1 text-sm" onClick={onClose}>Close</button>
+          <button className="btn-ghost px-3 py-1 text-sm" onClick={onClose}>Close</button>
         </div>
 
         <div className="flex flex-col items-center gap-4">
           <PomodoroRing secondsLeft={secondsLeft} totalSeconds={TOTAL} />
           <div className="flex gap-2">
-            <button className="rounded-elem bg-primary px-3 py-2 text-sm" onClick={() => setRunning((v) => !v)}>{running ? 'Pause' : 'Start'}</button>
-            <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => { setSecondsLeft(TOTAL); setRunning(false); setDone(false); }}>Reset</button>
-            <button className="rounded-elem border border-warning/40 bg-warning/10 px-3 py-2 text-sm text-warning" onClick={() => { setDone(true); setRunning(false); }}>Skip</button>
+            <button className="btn-primary" onClick={running ? pauseTimer : startTimer}>{running ? 'Pause' : 'Start'}</button>
+            <button className="btn-ghost" onClick={resetTimer}>Reset</button>
+            <button className="btn-warning" onClick={skipTimer}>Skip</button>
           </div>
 
           <div className="w-full rounded-elem border border-white/10 bg-slate-800/40 p-3">
@@ -62,7 +117,7 @@ export default function FocusTimer({ topic, onClose, onStatusUpdate, onLog, setA
               {['Flashcards', 'Quiz', 'Chat'].map((mode) => (
                 <button
                   key={mode}
-                  className="rounded-full border border-secondary/40 px-3 py-1 text-xs text-secondary"
+                  className="btn-secondary rounded-full px-3 py-1 text-xs"
                   onClick={() => {
                     setActiveTopic(topic);
                     navigate('/ai');
@@ -82,7 +137,7 @@ export default function FocusTimer({ topic, onClose, onStatusUpdate, onLog, setA
                 {confidenceButtons.map(([status, label]) => (
                   <button
                     key={status}
-                    className="rounded-full border border-white/20 px-3 py-1 text-xs"
+                    className="btn-ghost rounded-full px-3 py-1 text-xs"
                     onClick={() => {
                       onStatusUpdate(status);
                       onClose();

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
@@ -190,6 +190,16 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler);
   }, [navigate, location.pathname]);
 
+  const normalizeTimerTopic = useCallback(
+    (topic) => {
+      if (!topic) return null;
+      if (topic.examId) return topic;
+      if (topic.id && topicLookup[topic.id]) return topicLookup[topic.id];
+      return null;
+    },
+    [topicLookup]
+  );
+
   const ctx = {
     exams,
     userProfile,
@@ -212,7 +222,16 @@ export default function App() {
     updateSprintPlan,
     activeTopic,
     setActiveTopic,
-    openTimerForTopic: (topic) => setTimerTopic(topic),
+    openTimerForTopic: (topic) => {
+      const normalized = normalizeTimerTopic(topic);
+      if (!normalized) {
+        setStorageWarning('Select a valid topic to start the Focus Timer.');
+        setTimeout(() => setStorageWarning(''), 5000);
+        return;
+      }
+      setActiveTopic(normalized);
+      setTimerTopic(normalized);
+    },
     topicLookup,
     setStudyLog,
     social,
@@ -223,8 +242,40 @@ export default function App() {
     enableNotifications,
   };
 
+  const openFocusTimer = useCallback(() => {
+    const fallbackTopic =
+      normalizeTimerTopic(activeTopic) ||
+      exams
+        .filter((exam) => new Date(`${exam.examDate}T00:00:00`) >= new Date(new Date().toDateString()))
+        .sort((a, b) => new Date(`${a.examDate}T00:00:00`) - new Date(`${b.examDate}T00:00:00`))
+        .flatMap((exam) =>
+          exam.topics.map((topic) => ({
+            ...topic,
+            examId: exam.id,
+            examName: exam.name,
+            subject: exam.subject,
+            examDate: exam.examDate,
+          }))
+        )
+        .sort((a, b) => {
+          const statusRank = { not_started: 0, in_progress: 1, revised: 2, confident: 3 };
+          const byStatus = (statusRank[a.status] || 0) - (statusRank[b.status] || 0);
+          if (byStatus !== 0) return byStatus;
+          return (b.difficulty || 2) - (a.difficulty || 2);
+        })[0];
+
+    if (!fallbackTopic) {
+      setStorageWarning('Add at least one topic to start the Focus Timer.');
+      setTimeout(() => setStorageWarning(''), 5000);
+      return;
+    }
+
+    setActiveTopic(fallbackTopic);
+    setTimerTopic(fallbackTopic);
+  }, [activeTopic, exams, normalizeTimerTopic]);
+
   return (
-    <div className="flex min-h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar />
       {navOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 md:hidden" onClick={() => setNavOpen(false)}>
@@ -233,33 +284,34 @@ export default function App() {
           </div>
         </div>
       )}
-      <main className="flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-1 flex-col md:ml-72">
         <TopBar
           onToggleNav={() => setNavOpen((v) => !v)}
           onOpenAddExam={() => setAddExamOpen(true)}
-          onOpenTimer={() => setTimerTopic(activeTopic)}
+          onOpenTimer={openFocusTimer}
           activeTopicName={activeTopic?.name}
           isOnline={isOnline}
           syncMeta={syncMeta}
         />
-
-        <div className="page-shell">
-          {storageWarning && (
-            <div className="mb-3 rounded-elem border border-warning/40 bg-warning/10 p-3 text-sm text-warning">
-              {storageWarning}
-            </div>
-          )}
-          <Routes>
-            <Route path="/" element={<Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
-            <Route path="/exams" element={<ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
-            <Route path="/planner" element={<SprintPlanner {...ctx} />} />
-            <Route path="/ai" element={<AICompanion {...ctx} />} />
-            <Route path="/stats" element={<StatsPage {...ctx} />} />
-            <Route path="/settings" element={<SettingsPage {...ctx} />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </div>
-      </main>
+        <main className="flex-1 overflow-y-auto overflow-x-hidden pt-[60px]">
+          <div className="page-shell">
+            {storageWarning && (
+              <div className="mb-3 rounded-elem border border-warning/40 bg-warning/10 p-3 text-sm text-warning">
+                {storageWarning}
+              </div>
+            )}
+            <Routes>
+              <Route path="/" element={<Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
+              <Route path="/exams" element={<ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
+              <Route path="/planner" element={<SprintPlanner {...ctx} />} />
+              <Route path="/ai" element={<AICompanion {...ctx} />} />
+              <Route path="/stats" element={<StatsPage {...ctx} />} />
+              <Route path="/settings" element={<SettingsPage {...ctx} />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
+        </main>
+      </div>
 
       {addExamOpen && <AddExamModal onClose={() => setAddExamOpen(false)} onSubmit={(payload) => { addExam(payload); setAddExamOpen(false); }} />}
 

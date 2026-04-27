@@ -12,22 +12,26 @@ const links = [
 
 export default function Sidebar({ mobile = false, onNavigate }) {
   return (
-    <aside className={`${mobile ? 'h-full w-full max-w-72' : 'hidden h-screen md:sticky md:top-0 md:block md:w-72'} border-r border-white/10 bg-slate-900/80 backdrop-blur-md`}>
-      <div className="px-4 py-5">
-        <h1 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-xl font-extrabold text-transparent">Exam Sprint Planner</h1>
+    <aside
+      className={`${
+        mobile ? 'h-full w-full max-w-72' : 'hidden md:fixed md:inset-y-0 md:left-0 md:flex md:w-72 md:flex-col'
+      } border-r border-white/10 bg-surface/75 backdrop-blur-xl overflow-y-auto`}
+    >
+      <div className="border-b border-white/10 px-4 py-5">
+        <h1 className="text-xl font-bold tracking-tight text-text">Exam Sprint Planner</h1>
         <p className="mt-2 text-xs text-muted">Adaptive planning, revision, and AI-assisted study.</p>
       </div>
-      <nav className="space-y-1 px-2 pb-4">
+      <nav className="space-y-1 px-2 py-3">
         {links.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `group flex items-center gap-3 rounded-elem px-3 py-3 text-sm font-medium ${
+              `group flex items-center gap-3 rounded-elem border px-3 py-3 text-sm font-medium ${
                 isActive
-                  ? 'border-l-4 border-primary bg-primary/20 text-text'
-                  : 'border-l-4 border-transparent text-muted hover:bg-slate-700/40 hover:text-text'
+                  ? 'border-primary/50 bg-primary/20 text-text shadow-sm'
+                  : 'border-transparent text-muted hover:border-white/10 hover:bg-white/5 hover:text-text'
               }`
             }
           >

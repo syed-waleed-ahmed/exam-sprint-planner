@@ -1,11 +1,4 @@
-import { daysUntil } from './dateHelpers';
-
-const sortByDifficulty = (topics) => {
-  const hard = topics.filter((t) => t.difficulty === 3);
-  const medium = topics.filter((t) => t.difficulty === 2);
-  const easy = topics.filter((t) => t.difficulty === 1);
-  return { hard, medium, easy };
-};
+import { differenceInCalendarDays, isValid, parseISO } from 'date-fns';
 
 const statusPriority = {
   not_started: 3,
@@ -20,6 +13,13 @@ const startOfDay = (date) => {
   return d;
 };
 
+const parseIsoLocalDate = (isoDate) => {
+  if (!isoDate) return startOfDay(new Date());
+  const raw = String(isoDate);
+  const parsed = raw.includes('T') ? new Date(raw) : parseISO(raw);
+  return startOfDay(parsed);
+};
+
 const addDays = (date, days) => {
   const d = new Date(date);
   d.setDate(d.getDate() + days);
@@ -29,7 +29,40 @@ const addDays = (date, days) => {
 const formatShort = (date) =>
   new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
 
-const toIso = (date) => date.toISOString().slice(0, 10);
+const toIso = (date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+export const clampBlocksToExamWindow = (exam, blocks = []) => {
+  const examDay = parseIsoLocalDate(exam?.examDate);
+  if (!isValid(examDay)) return [];
+
+  return blocks
+    .map((block, idx) => {
+      const blockStart = parseIsoLocalDate(block.start);
+      const parsedEnd = parseIsoLocalDate(block.end);
+      if (!isValid(blockStart) || !isValid(parsedEnd) || blockStart > examDay) return null;
+      const blockEnd = parsedEnd > examDay ? new Date(examDay) : parsedEnd;
+      const isRevision = Boolean(block.isRevision);
+      return {
+        ...block,
+        id: `${exam.id}-week-${idx + 1}`,
+        start: toIso(blockStart),
+        end: toIso(blockEnd),
+        isRevision,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => parseIsoLocalDate(a.start) - parseIsoLocalDate(b.start))
+    .map((block, idx) => {
+      const weekStart = parseIsoLocalDate(block.start);
+      const weekEnd = parseIsoLocalDate(block.end);
+      return {
+        ...block,
+        id: `${exam.id}-week-${idx + 1}`,
+        label: `Week ${idx + 1} - ${formatShort(weekStart)} to ${formatShort(weekEnd)}${block.isRevision ? ' - Revision' : ''}`,
+      };
+    });
+};
 
 export const estimateTopicHours = (difficulty) => {
   if (difficulty === 3) return 2;
@@ -38,9 +71,13 @@ export const estimateTopicHours = (difficulty) => {
 };
 
 export const generateSprintBlocks = (exam, options = {}) => {
-  const totalDays = Math.max(daysUntil(exam.examDate), 1);
   const today = startOfDay(new Date());
-  const examDay = startOfDay(exam.examDate);
+  const examDay = parseIsoLocalDate(exam.examDate);
+  if (!isValid(examDay)) return [];
+
+  const totalDays = Math.max(differenceInCalendarDays(examDay, today), 1);
+
+  if (examDay < today) return [];
 
   const blocks = [];
   let cursor = new Date(today);
@@ -60,7 +97,13 @@ export const generateSprintBlocks = (exam, options = {}) => {
     idx += 1;
   }
 
-  if (blocks.length === 0) {
+  const inRangeBlocks = blocks.filter((block) => {
+    const blockStart = parseIsoLocalDate(block.start);
+    const blockEnd = parseIsoLocalDate(block.end);
+    return blockStart <= examDay && blockStart <= blockEnd;
+  });
+
+  if (inRangeBlocks.length === 0) {
     return [
       {
         id: `${exam.id}-week-1`,
@@ -73,26 +116,33 @@ export const generateSprintBlocks = (exam, options = {}) => {
     ];
   }
 
-  const reserveRevision = totalDays >= 7 && blocks.length > 1;
+  const blocksToPlan = inRangeBlocks.map((block) => ({ ...block }));
+
+  const reserveRevision = totalDays >= 7 && blocksToPlan.length > 1;
   const revisionBlockCount = reserveRevision ? 1 : 0;
-  const planningBlockCount = Math.max(blocks.length - revisionBlockCount, 1);
+  const planningBlockCount = Math.max(blocksToPlan.length - revisionBlockCount, 1);
 
   if (reserveRevision) {
-    const revIdx = blocks.length - 1;
-    blocks[revIdx].isRevision = true;
-    blocks[revIdx].label = `${blocks[revIdx].label} - Revision`;
+    const revIdx = blocksToPlan.length - 1;
+    blocksToPlan[revIdx].isRevision = true;
+    blocksToPlan[revIdx].label = `${blocksToPlan[revIdx].label} - Revision`;
   }
 
   const missedDays = Math.max(0, options.missedDays || 0);
   const missedReason = options.missedReason || '';
   if (missedDays > 0) {
-    blocks[0].adjustment = {
+    blocksToPlan[0].adjustment = {
       missedDays,
       reason: missedReason,
     };
   }
 
+  const examImportance = Math.max(1, Math.min(5, exam.importanceLevel || 3));
+
   const topics = [...(exam.topics || [])].sort((a, b) => {
+    const aImportance = Math.max(1, Math.min(5, a.importanceLevel || examImportance));
+    const bImportance = Math.max(1, Math.min(5, b.importanceLevel || examImportance));
+    if (bImportance !== aImportance) return bImportance - aImportance;
     const aPriority = (a.priorityScore || 0);
     const bPriority = (b.priorityScore || 0);
     if (bPriority !== aPriority) return bPriority - aPriority;
@@ -130,11 +180,11 @@ export const generateSprintBlocks = (exam, options = {}) => {
       }
     }
 
-    blocks[bestIdx].topics.push(topic.id);
+    blocksToPlan[bestIdx].topics.push(topic.id);
     plannedHours[bestIdx] += topicHours;
   });
 
-  blocks.forEach((block, index) => {
+  blocksToPlan.forEach((block, index) => {
     block.capacityHours = Math.round((adjustedTargetHours + Number.EPSILON) * 10) / 10;
     block.focusMode =
       index === 0 && missedDays > 0
@@ -146,9 +196,15 @@ export const generateSprintBlocks = (exam, options = {}) => {
             : options.freeTimePreference === 'intense'
               ? 'High-output week'
               : 'Balanced cadence';
+
+    const blockEnd = parseIsoLocalDate(block.end);
+    if (blockEnd > examDay) {
+      block.end = toIso(examDay);
+      block.label = `${block.label.split(' - ')[0]} - ${formatShort(parseIsoLocalDate(block.start))} to ${formatShort(examDay)}${block.isRevision ? ' - Revision' : ''}`;
+    }
   });
 
-  return blocks;
+  return clampBlocksToExamWindow(exam, blocksToPlan);
 };
 
 export const blockStats = (block, topicMap) => {
@@ -159,4 +215,92 @@ export const blockStats = (block, topicMap) => {
       ? 0
       : Math.round(topics.reduce((sum, topic) => sum + (topic.status === 'confident' ? 100 : topic.status === 'revised' ? 65 : topic.status === 'in_progress' ? 25 : 0), 0) / topics.length);
   return { hours, readiness };
+};
+
+export const buildLiveRebalancedPlan = (blocks = [], topicMap = {}, studyLog = [], examId = '') => {
+  if (!blocks.length) {
+    return {
+      blocks: [],
+      summary: { carryoverHours: 0, remainingHours: 0, dailyMinutesToday: 0 },
+    };
+  }
+
+  const today = startOfDay(new Date());
+  const byTopicMinutes = {};
+  studyLog
+    .filter((entry) => (!examId || entry.examId === examId) && entry.topicId)
+    .forEach((entry) => {
+      byTopicMinutes[entry.topicId] = (byTopicMinutes[entry.topicId] || 0) + (entry.minutesSpent || 0);
+    });
+
+  const withBase = blocks.map((block) => {
+    const blockStart = parseIsoLocalDate(block.start);
+    const blockEnd = parseIsoLocalDate(block.end);
+    const topics = (block.topics || []).map((id) => topicMap[id]).filter(Boolean);
+    const plannedHours = topics.reduce((sum, topic) => sum + estimateTopicHours(topic.difficulty || 2), 0);
+    const loggedHours = topics.reduce((sum, topic) => sum + ((byTopicMinutes[topic.id] || 0) / 60), 0);
+    const remainingHours = Math.max(plannedHours - loggedHours, 0);
+    const isPast = blockEnd < today;
+    const activeStart = blockStart > today ? blockStart : today;
+    const daysLeft = isPast ? 0 : Math.max(differenceInCalendarDays(blockEnd, activeStart) + 1, 1);
+    return {
+      ...block,
+      live: {
+        plannedHours,
+        loggedHours,
+        remainingHours,
+        daysLeft,
+        carryoverHours: 0,
+        adjustedRemainingHours: remainingHours,
+        dailyMinutesTarget: daysLeft > 0 ? Math.ceil((remainingHours * 60) / daysLeft) : 0,
+        isPast,
+      },
+    };
+  });
+
+  const carryoverHours = withBase
+    .filter((block) => block.live.isPast)
+    .reduce((sum, block) => sum + block.live.remainingHours, 0);
+
+  const futureIndexes = withBase
+    .map((block, index) => ({ block, index }))
+    .filter(({ block }) => !block.live.isPast && block.live.daysLeft > 0);
+
+  const totalFutureDays = futureIndexes.reduce((sum, { block }) => sum + block.live.daysLeft, 0);
+
+  let remainingCarryover = carryoverHours;
+  futureIndexes.forEach(({ index, block }, position) => {
+    const isLast = position === futureIndexes.length - 1;
+    const share = totalFutureDays > 0 ? carryoverHours * (block.live.daysLeft / totalFutureDays) : 0;
+    const applied = isLast ? remainingCarryover : Math.max(0, Math.min(share, remainingCarryover));
+    remainingCarryover -= applied;
+    withBase[index] = {
+      ...withBase[index],
+      live: {
+        ...withBase[index].live,
+        carryoverHours: applied,
+        adjustedRemainingHours: withBase[index].live.remainingHours + applied,
+        dailyMinutesTarget: Math.ceil(((withBase[index].live.remainingHours + applied) * 60) / withBase[index].live.daysLeft),
+      },
+    };
+  });
+
+  const activeBlock = withBase.find((block) => {
+    const start = parseIsoLocalDate(block.start);
+    const end = parseIsoLocalDate(block.end);
+    return start <= today && today <= end;
+  });
+  const nextBlock = withBase.find((block) => parseIsoLocalDate(block.start) > today);
+  const focusBlock = activeBlock || nextBlock;
+
+  return {
+    blocks: withBase,
+    summary: {
+      carryoverHours: Math.round((carryoverHours + Number.EPSILON) * 10) / 10,
+      remainingHours: Math.round(
+        (withBase.reduce((sum, block) => sum + block.live.adjustedRemainingHours, 0) + Number.EPSILON) * 10
+      ) / 10,
+      dailyMinutesToday: focusBlock ? focusBlock.live.dailyMinutesTarget : 0,
+    },
+  };
 };

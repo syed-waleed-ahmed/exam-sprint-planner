@@ -14,6 +14,7 @@ const cycleStatus = {
 export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTopic, deleteTopic, updateTopic, setTopicStatus, onStudyTopic }) {
   const [topicName, setTopicName] = useState('');
   const [difficulty, setDifficulty] = useState(2);
+  const [topicImportance, setTopicImportance] = useState(Math.max(1, Math.min(5, exam.importanceLevel || 3)));
   const [topicNameError, setTopicNameError] = useState('');
   const [confirmDeleteExam, setConfirmDeleteExam] = useState(false);
   const [topicToDelete, setTopicToDelete] = useState(null);
@@ -26,7 +27,11 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
       setEditTopicDraft((prev) => ({ ...prev, error: 'Topic name is required.' }));
       return;
     }
-    updateTopic(exam.id, editTopicDraft.topicId, { name: safeName });
+    updateTopic(exam.id, editTopicDraft.topicId, {
+      name: safeName,
+      difficulty: Math.max(1, Math.min(3, Number(editTopicDraft.difficulty || 2))),
+      importanceLevel: Math.max(1, Math.min(5, Number(editTopicDraft.importanceLevel || 3))),
+    });
     setEditTopicDraft(null);
   };
 
@@ -77,7 +82,13 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
               exam={exam}
               topic={topic}
               onEdit={(_, topicId) => {
-                setEditTopicDraft({ topicId, name: topic.name, error: '' });
+                setEditTopicDraft({
+                  topicId,
+                  name: topic.name,
+                  difficulty: Math.max(1, Math.min(3, topic.difficulty || 2)),
+                  importanceLevel: Math.max(1, Math.min(5, topic.importanceLevel || exam.importanceLevel || 3)),
+                  error: '',
+                });
               }}
               onDelete={(_, topicId) => setTopicToDelete(topicId)}
               onStudy={(xExam, xTopic) =>
@@ -90,7 +101,7 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
             />
           ))}
 
-          <div className="grid gap-2 rounded-elem border border-dashed border-white/20 p-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-2 rounded-elem border border-dashed border-white/20 p-3 sm:grid-cols-2 xl:grid-cols-5">
             <input
               className="input-base sm:col-span-2 xl:col-span-2"
               placeholder="Add topic"
@@ -105,6 +116,13 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
               <option value={2}>Medium</option>
               <option value={3}>Hard</option>
             </select>
+            <select className="input-base" value={topicImportance} onChange={(e) => setTopicImportance(Number(e.target.value))}>
+              <option value={1}>Low priority</option>
+              <option value={2}>Priority 2</option>
+              <option value={3}>Priority 3</option>
+              <option value={4}>Priority 4</option>
+              <option value={5}>High priority</option>
+            </select>
             <button
               className="btn-primary"
               onClick={() => {
@@ -113,7 +131,7 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
                   setTopicNameError('Topic name is required.');
                   return;
                 }
-                addTopic(exam.id, safeName, difficulty);
+                addTopic(exam.id, safeName, difficulty, topicImportance);
                 setTopicName('');
                 setTopicNameError('');
               }}
@@ -126,13 +144,36 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
           {editTopicDraft && (
             <div className="rounded-elem border border-white/20 bg-slate-900/70 p-3">
               <p className="text-sm font-semibold">Edit topic</p>
-              <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <div className="mt-2 grid gap-2 lg:grid-cols-4">
                 <input
-                  className="input-base w-full"
+                  className="input-base lg:col-span-2"
                   value={editTopicDraft.name}
                   onChange={(e) => setEditTopicDraft((prev) => ({ ...prev, name: e.target.value, error: '' }))}
                 />
-                <div className="flex gap-2">
+                <select
+                  className="input-base"
+                  value={editTopicDraft.difficulty}
+                  onChange={(e) => setEditTopicDraft((prev) => ({ ...prev, difficulty: Number(e.target.value), error: '' }))}
+                >
+                  <option value={1}>Easy</option>
+                  <option value={2}>Medium</option>
+                  <option value={3}>Hard</option>
+                </select>
+                <div className="rounded-elem border border-white/10 px-2 py-2">
+                  <p className="text-xs text-muted">Priority</p>
+                  <div className="mt-1 flex gap-1">
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <button
+                        key={n}
+                        className={`rounded px-1 text-base ${n <= editTopicDraft.importanceLevel ? 'text-warning' : 'text-slate-600'}`}
+                        onClick={() => setEditTopicDraft((prev) => ({ ...prev, importanceLevel: n, error: '' }))}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex gap-2 lg:col-span-4 lg:justify-end">
                   <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => setEditTopicDraft(null)}>Cancel</button>
                   <button className="rounded-elem bg-primary px-3 py-2 text-sm" onClick={submitTopicEdit}>Save</button>
                 </div>

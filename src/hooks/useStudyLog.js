@@ -12,6 +12,15 @@ export function useStudyLog() {
     safeSetJson(STORAGE_KEY, studyLog, 'study-log:save');
   }, [studyLog]);
 
+  useEffect(() => {
+    const onStorage = (event) => {
+      if (event.key !== STORAGE_KEY) return;
+      setStudyLog(readStorage());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   const logSession = (entry) => {
     setStudyLog((prev) => [
       ...prev,

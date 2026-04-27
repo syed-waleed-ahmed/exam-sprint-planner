@@ -11,7 +11,7 @@ export default function PomodoroRing({ secondsLeft, totalSeconds }) {
         cx="110"
         cy="110"
         r={radius}
-        stroke="#7C3AED"
+        stroke="#2563EB"
         strokeWidth="12"
         fill="none"
         strokeLinecap="round"

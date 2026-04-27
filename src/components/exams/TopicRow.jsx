@@ -10,11 +10,13 @@ const diffMap = {
 
 export default function TopicRow({ exam, topic, onEdit, onDelete, onStudy, onStatusChange }) {
   const diff = diffMap[topic.difficulty] || diffMap[2];
+  const topicImportance = Math.max(1, Math.min(5, topic.importanceLevel || 3));
 
   return (
-    <div className="grid grid-cols-1 gap-3 rounded-elem border border-white/10 bg-slate-800/40 p-3 lg:grid-cols-[minmax(0,2fr)_auto_auto_auto_auto_auto] lg:items-center">
+    <div className="grid grid-cols-1 gap-3 rounded-elem border border-white/10 bg-slate-800/40 p-3 lg:grid-cols-[minmax(0,2fr)_auto_auto_auto_auto_auto_auto] lg:items-center">
       <p className="font-medium">{topic.name}</p>
       <span className={`inline-block w-fit rounded-full px-2 py-1 text-xs ${diff.cls}`}>{diff.label}</span>
+      <span className="inline-block w-fit rounded-full bg-warning/20 px-2 py-1 text-xs text-warning">{'★'.repeat(topicImportance)}</span>
       <ConfidencePill status={topic.status} onClick={() => onStatusChange(exam.id, topic.id)} />
       <p className="text-xs text-muted">{topic.lastReviewed ? formatDate(topic.lastReviewed) : 'Not reviewed'}</p>
       <button className="btn-secondary w-full sm:w-fit" onClick={() => onStudy(exam, topic)}>
