@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import DOMPurify from 'dompurify';
 import { marked } from 'marked';
-import { safeMarkdownSource, sanitizeMultilineInput } from '../../utils/security';
+import { sanitizeMultilineInput } from '../../utils/security';
 import { safeGetItem } from '../../utils/storage';
 import { toUserAIErrorMessage } from '../../hooks/useAI';
 
@@ -17,20 +18,21 @@ export default function ChatTab({ topic, chat, missingKey }) {
   const [messages, setMessages] = useState([]);
   const [conversationHistory, setConversationHistory] = useState([]);
   const messagesEndRef = useRef(null);
+  const chatRef = useRef(chat);
+  chatRef.current = chat;
 
-  const renderAssistant = (content) => {
-    const safe = safeMarkdownSource(content);
-    return marked.parse(safe);
-  };
+  const renderAssistant = useCallback((content) => {
+    return DOMPurify.sanitize(marked.parse(content || ''));
+  }, []);
 
   useEffect(() => {
-    const topicMessages = chat.getTopicMessages(topic.id);
+    const topicMessages = chatRef.current.getTopicMessages(topic.id);
     setMessages(topicMessages);
     setConversationHistory(topicMessages.map((message) => ({ role: message.role, content: message.content })));
   }, [topic.id]);
 
   useEffect(() => {
-    chat.setTopicMessages(topic.id, messages);
+    chatRef.current.setTopicMessages(topic.id, messages);
   }, [messages, topic.id]);
 
   useEffect(() => {

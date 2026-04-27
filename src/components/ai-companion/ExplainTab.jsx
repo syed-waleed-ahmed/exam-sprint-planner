@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
+import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 import { daysUntil } from '../../utils/dateHelpers';
 import { useAI } from '../../hooks/useAI';
 import { getReviewSchedule } from '../../utils/studyInsights';
-import { safeMarkdownSource } from '../../utils/security';
 import LoadingSkeleton from '../shared/LoadingSkeleton';
 
 const levels = [
@@ -72,7 +72,7 @@ export default function ExplainTab({ topic, onSave, onSetStatus, addCustomDefini
         ))}
         <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => generate(level)}>Regenerate Explanation</button>
       </div>
-      <article className="prose prose-invert max-w-none rounded-card border border-white/10 bg-slate-900/30 p-4 text-sm" dangerouslySetInnerHTML={{ __html: marked.parse(safeMarkdownSource(levelContent || topic.aiContent?.summary || '')) }} />
+      <article className="prose prose-invert max-w-none rounded-card border border-white/10 bg-slate-900/30 p-4 text-sm" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(levelContent || topic.aiContent?.summary || '')) }} />
       <div className="rounded-elem border border-white/10 bg-slate-900/35 p-4">
         <h4 className="font-semibold">AI-driven review schedule</h4>
         <div className="mt-3 grid gap-2 md:grid-cols-3">

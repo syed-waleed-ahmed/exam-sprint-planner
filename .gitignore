@@ -16,6 +16,7 @@ coverage/
 # Environment files
 .env
 .env.*
+.env.local
 !.env.example
 
 # Editor and OS files
@@ -28,6 +29,9 @@ Thumbs.db
 
 # Vite cache
 .vite/
+
+# TypeScript build info
+*.tsbuildinfo
 
 # Legacy Graphify output at repo root
 graphify-out/

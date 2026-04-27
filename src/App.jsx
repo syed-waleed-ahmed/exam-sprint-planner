@@ -1,13 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar';
 import TopBar from './components/layout/TopBar';
-import Dashboard from './components/dashboard/Dashboard';
-import ExamList from './components/exams/ExamList';
-import SprintPlanner from './components/planner/SprintPlanner';
-import AICompanion from './components/ai-companion/AICompanion';
-import StatsPage from './components/stats/StatsPage';
-import SettingsPage from './components/settings/Settings';
+import RouteErrorBoundary from './components/shared/RouteErrorBoundary';
 import FocusTimer from './components/timer/FocusTimer';
 import AddExamModal from './components/exams/AddExamModal';
 import { useExams } from './hooks/useExams';
@@ -16,6 +11,20 @@ import { useChatHistory } from './hooks/useChatHistory';
 import { useSocialStudy } from './hooks/useSocialStudy';
 import { getSmartReminders } from './utils/studyInsights';
 import { getStorageWarningEventName, safeGetItem, safeGetJson, safeSetItem, safeSetJson } from './utils/storage';
+
+// Lazy-loaded page components for code splitting
+const Dashboard = lazy(() => import('./components/dashboard/Dashboard'));
+const ExamList = lazy(() => import('./components/exams/ExamList'));
+const SprintPlanner = lazy(() => import('./components/planner/SprintPlanner'));
+const AICompanion = lazy(() => import('./components/ai-companion/AICompanion'));
+const StatsPage = lazy(() => import('./components/stats/StatsPage'));
+const SettingsPage = lazy(() => import('./components/settings/Settings'));
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center py-24">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+  </div>
+);
 
 const defaultProfile = {
   name: 'Learner',
@@ -300,15 +309,17 @@ export default function App() {
                 {storageWarning}
               </div>
             )}
-            <Routes>
-              <Route path="/" element={<Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
-              <Route path="/exams" element={<ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
-              <Route path="/planner" element={<SprintPlanner {...ctx} />} />
-              <Route path="/ai" element={<AICompanion {...ctx} />} />
-              <Route path="/stats" element={<StatsPage {...ctx} />} />
-              <Route path="/settings" element={<SettingsPage {...ctx} />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<RouteErrorBoundary><Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} /></RouteErrorBoundary>} />
+                <Route path="/exams" element={<RouteErrorBoundary><ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} /></RouteErrorBoundary>} />
+                <Route path="/planner" element={<RouteErrorBoundary><SprintPlanner {...ctx} /></RouteErrorBoundary>} />
+                <Route path="/ai" element={<RouteErrorBoundary><AICompanion {...ctx} /></RouteErrorBoundary>} />
+                <Route path="/stats" element={<RouteErrorBoundary><StatsPage {...ctx} /></RouteErrorBoundary>} />
+                <Route path="/settings" element={<RouteErrorBoundary><SettingsPage {...ctx} /></RouteErrorBoundary>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
           </div>
         </main>
       </div>

@@ -35,7 +35,7 @@ const textFromResponse = (data) => {
   return data.choices?.[0]?.message?.content || '';
 };
 
-async function callAnthropic(prompt, { stream = false } = {}) {
+async function callOpenAI(prompt, { stream = false } = {}) {
   const apiKey = getApiKey();
   if (!apiKey) throw new AIRequestError('Missing API key', { code: 'missing_api_key' });
 
@@ -86,7 +86,7 @@ async function callAnthropic(prompt, { stream = false } = {}) {
 export function useAI() {
   const requestJson = async (prompt) => {
     try {
-      const res = await callAnthropic(prompt);
+      const res = await callOpenAI(prompt);
       const data = await res.json();
       const text = textFromResponse(data);
       return JSON.parse(stripMarkdownJson(text));
@@ -100,7 +100,7 @@ export function useAI() {
 
   const requestText = async (prompt) => {
     try {
-      const res = await callAnthropic(prompt);
+      const res = await callOpenAI(prompt);
       const data = await res.json();
       return textFromResponse(data);
     } catch (error) {
@@ -109,7 +109,7 @@ export function useAI() {
   };
 
   const streamChat = async (prompt, onDelta) => {
-    const res = await callAnthropic(prompt, { stream: true });
+    const res = await callOpenAI(prompt, { stream: true });
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
 
