@@ -7,6 +7,7 @@ import FlashcardTab from './FlashcardTab';
 import QuizTab from './QuizTab';
 import MindmapTab from './MindmapTab';
 import ExplainTab from './ExplainTab';
+import { safeGetItem } from '../../utils/storage';
 
 const tabs = ['Chat', 'Flashcards', 'Quiz', 'Mindmap', 'Explain'];
 
@@ -27,7 +28,7 @@ export default function AICompanion({
   const [tab, setTab] = useState('Chat');
   const [query, setQuery] = useState('');
 
-  const missingKey = !localStorage.getItem('openai_api_key');
+  const missingKey = !safeGetItem('openai_api_key', '', 'ai-companion:api-key');
 
   const topic = useMemo(() => {
     if (activeTopic) return activeTopic;

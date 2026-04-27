@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { calculateExamReadiness } from '../utils/readiness';
 import { dateISO } from '../utils/dateHelpers';
 import { sanitizeTextInput, safeTopicPayload } from '../utils/security';
+import { safeGetJson, safeSetJson } from '../utils/storage';
 
 const STORAGE_KEY = 'exams';
 const SPRINT_KEY = 'sprint_plans';
@@ -11,25 +12,18 @@ const uid = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
 const initialExams = [];
 
-const readStorage = (key, fallback) => {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
-};
+const readStorage = (key, fallback) => safeGetJson(key, fallback, `exams:read:${key}`);
 
 export function useExams() {
   const [exams, setExams] = useState(() => readStorage(STORAGE_KEY, initialExams));
   const [sprintPlans, setSprintPlans] = useState(() => readStorage(SPRINT_KEY, {}));
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(exams));
+    safeSetJson(STORAGE_KEY, exams, 'exams:save');
   }, [exams]);
 
   useEffect(() => {
-    localStorage.setItem(SPRINT_KEY, JSON.stringify(sprintPlans));
+    safeSetJson(SPRINT_KEY, sprintPlans, 'sprints:save');
   }, [sprintPlans]);
 
   const examsWithReadiness = useMemo(

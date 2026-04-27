@@ -13,19 +13,10 @@
       "norm_label": "app.jsx"
     },
     {
-      "label": "readJson()",
-      "file_type": "code",
-      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L37",
-      "id": "app_readjson",
-      "community": 0,
-      "norm_label": "readjson()"
-    },
-    {
       "label": "App()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L45",
+      "source_location": "L38",
       "id": "app_app",
       "community": 0,
       "norm_label": "app()"
@@ -45,16 +36,16 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\AICompanion.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_aicompanion_jsx",
-      "community": 8,
+      "community": 4,
       "norm_label": "aicompanion.jsx"
     },
     {
       "label": "AICompanion()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\AICompanion.jsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "id": "aicompanion_aicompanion",
-      "community": 8,
+      "community": 4,
       "norm_label": "aicompanion()"
     },
     {
@@ -63,16 +54,16 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ChatTab.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_chattab_jsx",
-      "community": 9,
+      "community": 10,
       "norm_label": "chattab.jsx"
     },
     {
       "label": "ChatTab()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ChatTab.jsx",
-      "source_location": "L12",
+      "source_location": "L14",
       "id": "chattab_chattab",
-      "community": 9,
+      "community": 10,
       "norm_label": "chattab()"
     },
     {
@@ -81,7 +72,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ExplainTab.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_explaintab_jsx",
-      "community": 5,
+      "community": 7,
       "norm_label": "explaintab.jsx"
     },
     {
@@ -90,7 +81,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ExplainTab.jsx",
       "source_location": "L15",
       "id": "explaintab_explaintab",
-      "community": 5,
+      "community": 7,
       "norm_label": "explaintab()"
     },
     {
@@ -99,7 +90,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\FlashcardTab.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_flashcardtab_jsx",
-      "community": 3,
+      "community": 1,
       "norm_label": "flashcardtab.jsx"
     },
     {
@@ -108,7 +99,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\FlashcardTab.jsx",
       "source_location": "L5",
       "id": "flashcardtab_flashcardtab",
-      "community": 3,
+      "community": 1,
       "norm_label": "flashcardtab()"
     },
     {
@@ -117,7 +108,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\MindmapTab.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_mindmaptab_jsx",
-      "community": 3,
+      "community": 1,
       "norm_label": "mindmaptab.jsx"
     },
     {
@@ -126,7 +117,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\MindmapTab.jsx",
       "source_location": "L6",
       "id": "mindmaptab_mindmaptab",
-      "community": 3,
+      "community": 1,
       "norm_label": "mindmaptab()"
     },
     {
@@ -135,7 +126,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\QuizTab.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_quiztab_jsx",
-      "community": 3,
+      "community": 1,
       "norm_label": "quiztab.jsx"
     },
     {
@@ -144,7 +135,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\QuizTab.jsx",
       "source_location": "L5",
       "id": "quiztab_statusbyscore",
-      "community": 3,
+      "community": 1,
       "norm_label": "statusbyscore()"
     },
     {
@@ -153,7 +144,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\QuizTab.jsx",
       "source_location": "L13",
       "id": "quiztab_quiztab",
-      "community": 3,
+      "community": 1,
       "norm_label": "quiztab()"
     },
     {
@@ -162,7 +153,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\TopicSelector.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_topicselector_jsx",
-      "community": 10,
+      "community": 11,
       "norm_label": "topicselector.jsx"
     },
     {
@@ -171,7 +162,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\TopicSelector.jsx",
       "source_location": "L3",
       "id": "topicselector_topicselector",
-      "community": 10,
+      "community": 11,
       "norm_label": "topicselector()"
     },
     {
@@ -180,7 +171,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_dashboard_dashboard_jsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "dashboard.jsx"
     },
     {
@@ -189,7 +180,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
       "source_location": "L17",
       "id": "dashboard_metric",
-      "community": 4,
+      "community": 5,
       "norm_label": "metric()"
     },
     {
@@ -198,7 +189,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
       "source_location": "L29",
       "id": "dashboard_dashboard",
-      "community": 4,
+      "community": 5,
       "norm_label": "dashboard()"
     },
     {
@@ -207,7 +198,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\ReadinessOverview.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_dashboard_readinessoverview_jsx",
-      "community": 11,
+      "community": 12,
       "norm_label": "readinessoverview.jsx"
     },
     {
@@ -216,7 +207,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\ReadinessOverview.jsx",
       "source_location": "L4",
       "id": "readinessoverview_readinessoverview",
-      "community": 11,
+      "community": 12,
       "norm_label": "readinessoverview()"
     },
     {
@@ -225,7 +216,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\TodaysSprint.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_dashboard_todayssprint_jsx",
-      "community": 12,
+      "community": 13,
       "norm_label": "todayssprint.jsx"
     },
     {
@@ -234,7 +225,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\TodaysSprint.jsx",
       "source_location": "L4",
       "id": "todayssprint_todayssprint",
-      "community": 12,
+      "community": 13,
       "norm_label": "todayssprint()"
     },
     {
@@ -243,7 +234,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\AddExamModal.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_exams_addexammodal_jsx",
-      "community": 13,
+      "community": 14,
       "norm_label": "addexammodal.jsx"
     },
     {
@@ -252,7 +243,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\AddExamModal.jsx",
       "source_location": "L6",
       "id": "addexammodal_addexammodal",
-      "community": 13,
+      "community": 14,
       "norm_label": "addexammodal()"
     },
     {
@@ -261,7 +252,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\ExamCard.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_exams_examcard_jsx",
-      "community": 14,
+      "community": 15,
       "norm_label": "examcard.jsx"
     },
     {
@@ -270,7 +261,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\ExamCard.jsx",
       "source_location": "L14",
       "id": "examcard_examcard",
-      "community": 14,
+      "community": 15,
       "norm_label": "examcard()"
     },
     {
@@ -279,7 +270,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\ExamList.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_exams_examlist_jsx",
-      "community": 15,
+      "community": 16,
       "norm_label": "examlist.jsx"
     },
     {
@@ -288,7 +279,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\exams\\ExamList.jsx",
       "source_location": "L4",
       "id": "examlist_examlist",
-      "community": 15,
+      "community": 16,
       "norm_label": "examlist()"
     },
     {
@@ -315,7 +306,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\layout\\Sidebar.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_layout_sidebar_jsx",
-      "community": 16,
+      "community": 17,
       "norm_label": "sidebar.jsx"
     },
     {
@@ -324,7 +315,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\layout\\Sidebar.jsx",
       "source_location": "L13",
       "id": "sidebar_sidebar",
-      "community": 16,
+      "community": 17,
       "norm_label": "sidebar()"
     },
     {
@@ -333,7 +324,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\layout\\TopBar.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_layout_topbar_jsx",
-      "community": 17,
+      "community": 18,
       "norm_label": "topbar.jsx"
     },
     {
@@ -342,7 +333,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\layout\\TopBar.jsx",
       "source_location": "L3",
       "id": "topbar_topbar",
-      "community": 17,
+      "community": 18,
       "norm_label": "topbar()"
     },
     {
@@ -351,7 +342,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\SprintBlock.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_planner_sprintblock_jsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "sprintblock.jsx"
     },
     {
@@ -360,7 +351,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\SprintBlock.jsx",
       "source_location": "L4",
       "id": "sprintblock_sprintblock",
-      "community": 2,
+      "community": 3,
       "norm_label": "sprintblock()"
     },
     {
@@ -369,7 +360,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\SprintPlanner.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_planner_sprintplanner_jsx",
-      "community": 1,
+      "community": 2,
       "norm_label": "sprintplanner.jsx"
     },
     {
@@ -378,7 +369,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\SprintPlanner.jsx",
       "source_location": "L7",
       "id": "sprintplanner_sprintplanner",
-      "community": 1,
+      "community": 2,
       "norm_label": "sprintplanner()"
     },
     {
@@ -387,7 +378,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\TimelineView.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_planner_timelineview_jsx",
-      "community": 7,
+      "community": 9,
       "norm_label": "timelineview.jsx"
     },
     {
@@ -396,7 +387,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\TimelineView.jsx",
       "source_location": "L4",
       "id": "timelineview_topicchip",
-      "community": 7,
+      "community": 9,
       "norm_label": "topicchip()"
     },
     {
@@ -405,7 +396,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\planner\\TimelineView.jsx",
       "source_location": "L24",
       "id": "timelineview_timelineview",
-      "community": 7,
+      "community": 9,
       "norm_label": "timelineview()"
     },
     {
@@ -414,16 +405,16 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\settings\\Settings.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_settings_settings_jsx",
-      "community": 18,
+      "community": 4,
       "norm_label": "settings.jsx"
     },
     {
       "label": "SettingsPage()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\settings\\Settings.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "id": "settings_settingspage",
-      "community": 18,
+      "community": 4,
       "norm_label": "settingspage()"
     },
     {
@@ -450,7 +441,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\DaysRemaining.jsx",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_shared_daysremaining_jsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "daysremaining.jsx"
     },
     {
@@ -459,8 +450,62 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\DaysRemaining.jsx",
       "source_location": "L3",
       "id": "daysremaining_daysremaining",
-      "community": 2,
+      "community": 3,
       "norm_label": "daysremaining()"
+    },
+    {
+      "label": "ErrorBoundary.jsx",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L1",
+      "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_shared_errorboundary_jsx",
+      "community": 8,
+      "norm_label": "errorboundary.jsx"
+    },
+    {
+      "label": "ErrorBoundary",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L3",
+      "id": "errorboundary_errorboundary",
+      "community": 8,
+      "norm_label": "errorboundary"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L4",
+      "id": "errorboundary_errorboundary_constructor",
+      "community": 8,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": ".getDerivedStateFromError()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L9",
+      "id": "errorboundary_errorboundary_getderivedstatefromerror",
+      "community": 8,
+      "norm_label": ".getderivedstatefromerror()"
+    },
+    {
+      "label": ".componentDidCatch()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L13",
+      "id": "errorboundary_errorboundary_componentdidcatch",
+      "community": 8,
+      "norm_label": ".componentdidcatch()"
+    },
+    {
+      "label": ".render()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L17",
+      "id": "errorboundary_errorboundary_render",
+      "community": 8,
+      "norm_label": ".render()"
     },
     {
       "label": "LoadingSkeleton.jsx",
@@ -576,52 +621,79 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
-      "community": 3,
+      "community": 1,
       "norm_label": "useai.js"
     },
     {
       "label": "stripMarkdownJson()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L4",
+      "source_location": "L6",
       "id": "useai_stripmarkdownjson",
-      "community": 3,
+      "community": 1,
       "norm_label": "stripmarkdownjson()"
     },
     {
       "label": "getApiKey()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L6",
+      "source_location": "L8",
       "id": "useai_getapikey",
-      "community": 3,
+      "community": 1,
       "norm_label": "getapikey()"
+    },
+    {
+      "label": "AIRequestError",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L10",
+      "id": "useai_airequesterror",
+      "community": 1,
+      "norm_label": "airequesterror"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L11",
+      "id": "useai_airequesterror_constructor",
+      "community": 1,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": "toUserAIErrorMessage()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L19",
+      "id": "useai_touseraierrormessage",
+      "community": 1,
+      "norm_label": "touseraierrormessage()"
     },
     {
       "label": "textFromResponse()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L8",
+      "source_location": "L34",
       "id": "useai_textfromresponse",
-      "community": 3,
+      "community": 1,
       "norm_label": "textfromresponse()"
     },
     {
       "label": "callAnthropic()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L12",
+      "source_location": "L38",
       "id": "useai_callanthropic",
-      "community": 3,
+      "community": 1,
       "norm_label": "callanthropic()"
     },
     {
       "label": "useAI()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L47",
+      "source_location": "L86",
       "id": "useai_useai",
-      "community": 3,
+      "community": 1,
       "norm_label": "useai()"
     },
     {
@@ -637,7 +709,7 @@
       "label": "readStorage()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useChatHistory.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "id": "usechathistory_readstorage",
       "community": 0,
       "norm_label": "readstorage()"
@@ -646,7 +718,7 @@
       "label": "useChatHistory()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useChatHistory.js",
-      "source_location": "L14",
+      "source_location": "L8",
       "id": "usechathistory_usechathistory",
       "community": 0,
       "norm_label": "usechathistory()"
@@ -664,7 +736,7 @@
       "label": "uid()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "id": "useexams_uid",
       "community": 0,
       "norm_label": "uid()"
@@ -673,7 +745,7 @@
       "label": "readStorage()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L14",
+      "source_location": "L15",
       "id": "useexams_readstorage",
       "community": 0,
       "norm_label": "readstorage()"
@@ -682,7 +754,7 @@
       "label": "useExams()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L23",
+      "source_location": "L17",
       "id": "useexams_useexams",
       "community": 0,
       "norm_label": "useexams()"
@@ -700,7 +772,7 @@
       "label": "uid()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "id": "usesocialstudy_uid",
       "community": 0,
       "norm_label": "uid()"
@@ -709,7 +781,7 @@
       "label": "readStorage()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L27",
+      "source_location": "L28",
       "id": "usesocialstudy_readstorage",
       "community": 0,
       "norm_label": "readstorage()"
@@ -718,7 +790,7 @@
       "label": "useSocialStudy()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L36",
+      "source_location": "L30",
       "id": "usesocialstudy_usesocialstudy",
       "community": 0,
       "norm_label": "usesocialstudy()"
@@ -736,7 +808,7 @@
       "label": "readStorage()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useStudyLog.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "id": "usestudylog_readstorage",
       "community": 0,
       "norm_label": "readstorage()"
@@ -745,7 +817,7 @@
       "label": "useStudyLog()",
       "file_type": "code",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useStudyLog.js",
-      "source_location": "L14",
+      "source_location": "L8",
       "id": "usestudylog_usestudylog",
       "community": 0,
       "norm_label": "usestudylog()"
@@ -774,7 +846,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\dateHelpers.js",
       "source_location": "L5",
       "id": "datehelpers_daysuntil",
-      "community": 2,
+      "community": 3,
       "norm_label": "daysuntil()"
     },
     {
@@ -828,7 +900,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\priorityEngine.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_priorityengine_js",
-      "community": 4,
+      "community": 5,
       "norm_label": "priorityengine.js"
     },
     {
@@ -837,7 +909,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\priorityEngine.js",
       "source_location": "L10",
       "id": "priorityengine_recommendtodaystopics",
-      "community": 4,
+      "community": 5,
       "norm_label": "recommendtodaystopics()"
     },
     {
@@ -846,7 +918,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_readiness_js",
-      "community": 4,
+      "community": 5,
       "norm_label": "readiness.js"
     },
     {
@@ -855,7 +927,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L14",
       "id": "readiness_getstatusscore",
-      "community": 4,
+      "community": 5,
       "norm_label": "getstatusscore()"
     },
     {
@@ -864,7 +936,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L16",
       "id": "readiness_getdifficultyweight",
-      "community": 4,
+      "community": 5,
       "norm_label": "getdifficultyweight()"
     },
     {
@@ -873,7 +945,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L18",
       "id": "readiness_calculateexamreadiness",
-      "community": 4,
+      "community": 5,
       "norm_label": "calculateexamreadiness()"
     },
     {
@@ -882,7 +954,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L25",
       "id": "readiness_calculateoverallreadiness",
-      "community": 4,
+      "community": 5,
       "norm_label": "calculateoverallreadiness()"
     },
     {
@@ -891,7 +963,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L31",
       "id": "readiness_masterycount",
-      "community": 4,
+      "community": 5,
       "norm_label": "masterycount()"
     },
     {
@@ -900,7 +972,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\readiness.js",
       "source_location": "L34",
       "id": "readiness_confidencedistribution",
-      "community": 4,
+      "community": 5,
       "norm_label": "confidencedistribution()"
     },
     {
@@ -909,7 +981,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_security_js",
-      "community": 5,
+      "community": 7,
       "norm_label": "security.js"
     },
     {
@@ -918,7 +990,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L3",
       "id": "security_sanitizetextinput",
-      "community": 5,
+      "community": 7,
       "norm_label": "sanitizetextinput()"
     },
     {
@@ -927,7 +999,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L12",
       "id": "security_sanitizemultilineinput",
-      "community": 5,
+      "community": 7,
       "norm_label": "sanitizemultilineinput()"
     },
     {
@@ -936,7 +1008,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L20",
       "id": "security_escapehtml",
-      "community": 5,
+      "community": 7,
       "norm_label": "escapehtml()"
     },
     {
@@ -945,7 +1017,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L29",
       "id": "security_safemarkdownsource",
-      "community": 5,
+      "community": 7,
       "norm_label": "safemarkdownsource()"
     },
     {
@@ -954,7 +1026,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L33",
       "id": "security_safetopicpayload",
-      "community": 5,
+      "community": 7,
       "norm_label": "safetopicpayload()"
     },
     {
@@ -963,7 +1035,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\security.js",
       "source_location": "L41",
       "id": "security_validateimportedbackup",
-      "community": 5,
+      "community": 7,
       "norm_label": "validateimportedbackup()"
     },
     {
@@ -972,7 +1044,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_sprintgenerator_js",
-      "community": 2,
+      "community": 3,
       "norm_label": "sprintgenerator.js"
     },
     {
@@ -981,7 +1053,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L3",
       "id": "sprintgenerator_sortbydifficulty",
-      "community": 2,
+      "community": 3,
       "norm_label": "sortbydifficulty()"
     },
     {
@@ -990,7 +1062,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L17",
       "id": "sprintgenerator_startofday",
-      "community": 2,
+      "community": 3,
       "norm_label": "startofday()"
     },
     {
@@ -999,7 +1071,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L23",
       "id": "sprintgenerator_adddays",
-      "community": 2,
+      "community": 3,
       "norm_label": "adddays()"
     },
     {
@@ -1008,7 +1080,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L29",
       "id": "sprintgenerator_formatshort",
-      "community": 2,
+      "community": 3,
       "norm_label": "formatshort()"
     },
     {
@@ -1017,7 +1089,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L32",
       "id": "sprintgenerator_toiso",
-      "community": 2,
+      "community": 3,
       "norm_label": "toiso()"
     },
     {
@@ -1026,7 +1098,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L34",
       "id": "sprintgenerator_estimatetopichours",
-      "community": 2,
+      "community": 3,
       "norm_label": "estimatetopichours()"
     },
     {
@@ -1035,7 +1107,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L40",
       "id": "sprintgenerator_generatesprintblocks",
-      "community": 2,
+      "community": 3,
       "norm_label": "generatesprintblocks()"
     },
     {
@@ -1044,8 +1116,89 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L154",
       "id": "sprintgenerator_blockstats",
-      "community": 2,
+      "community": 3,
       "norm_label": "blockstats()"
+    },
+    {
+      "label": "storage.js",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L1",
+      "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "community": 4,
+      "norm_label": "storage.js"
+    },
+    {
+      "label": "emitWarning()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L3",
+      "id": "storage_emitwarning",
+      "community": 4,
+      "norm_label": "emitwarning()"
+    },
+    {
+      "label": "getStorage()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L16",
+      "id": "storage_getstorage",
+      "community": 4,
+      "norm_label": "getstorage()"
+    },
+    {
+      "label": "getStorageWarningEventName()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L21",
+      "id": "storage_getstoragewarningeventname",
+      "community": 4,
+      "norm_label": "getstoragewarningeventname()"
+    },
+    {
+      "label": "safeGetItem()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L25",
+      "id": "storage_safegetitem",
+      "community": 4,
+      "norm_label": "safegetitem()"
+    },
+    {
+      "label": "safeGetJson()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L37",
+      "id": "storage_safegetjson",
+      "community": 4,
+      "norm_label": "safegetjson()"
+    },
+    {
+      "label": "safeSetItem()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L48",
+      "id": "storage_safesetitem",
+      "community": 4,
+      "norm_label": "safesetitem()"
+    },
+    {
+      "label": "safeSetJson()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L63",
+      "id": "storage_safesetjson",
+      "community": 4,
+      "norm_label": "safesetjson()"
+    },
+    {
+      "label": "safeClear()",
+      "file_type": "code",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L72",
+      "id": "storage_safeclear",
+      "community": 4,
+      "norm_label": "safeclear()"
     },
     {
       "label": "studyInsights.js",
@@ -1053,7 +1206,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L1",
       "id": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_studyinsights_js",
-      "community": 1,
+      "community": 2,
       "norm_label": "studyinsights.js"
     },
     {
@@ -1062,7 +1215,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L18",
       "id": "studyinsights_datekey",
-      "community": 1,
+      "community": 2,
       "norm_label": "datekey()"
     },
     {
@@ -1071,7 +1224,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L20",
       "id": "studyinsights_getexamtopicmap",
-      "community": 1,
+      "community": 2,
       "norm_label": "getexamtopicmap()"
     },
     {
@@ -1080,7 +1233,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L31",
       "id": "studyinsights_getmissedstudydays",
-      "community": 1,
+      "community": 2,
       "norm_label": "getmissedstudydays()"
     },
     {
@@ -1089,7 +1242,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L49",
       "id": "studyinsights_getstudystreak",
-      "community": 1,
+      "community": 2,
       "norm_label": "getstudystreak()"
     },
     {
@@ -1098,7 +1251,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L62",
       "id": "studyinsights_getachievements",
-      "community": 1,
+      "community": 2,
       "norm_label": "getachievements()"
     },
     {
@@ -1107,7 +1260,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L108",
       "id": "studyinsights_getefficiencyfeedback",
-      "community": 1,
+      "community": 2,
       "norm_label": "getefficiencyfeedback()"
     },
     {
@@ -1116,7 +1269,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L131",
       "id": "studyinsights_getpersonalizedrecommendations",
-      "community": 1,
+      "community": 2,
       "norm_label": "getpersonalizedrecommendations()"
     },
     {
@@ -1125,7 +1278,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L183",
       "id": "studyinsights_getmoodanalytics",
-      "community": 1,
+      "community": 2,
       "norm_label": "getmoodanalytics()"
     },
     {
@@ -1134,7 +1287,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L223",
       "id": "studyinsights_getcomparativetrend",
-      "community": 1,
+      "community": 2,
       "norm_label": "getcomparativetrend()"
     },
     {
@@ -1143,7 +1296,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L240",
       "id": "studyinsights_getreviewschedule",
-      "community": 1,
+      "community": 2,
       "norm_label": "getreviewschedule()"
     },
     {
@@ -1152,7 +1305,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L259",
       "id": "studyinsights_getsmartreminders",
-      "community": 1,
+      "community": 2,
       "norm_label": "getsmartreminders()"
     },
     {
@@ -1161,7 +1314,7 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\studyInsights.js",
       "source_location": "L308",
       "id": "studyinsights_getleaderboard",
-      "community": 1,
+      "community": 2,
       "norm_label": "getleaderboard()"
     }
   ],
@@ -1170,19 +1323,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L37",
-      "weight": 1.0,
-      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_app_jsx",
-      "_tgt": "app_readjson",
-      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_app_jsx",
-      "target": "app_readjson",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L45",
+      "source_location": "L38",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_app_jsx",
       "_tgt": "app_app",
@@ -1195,7 +1336,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L46",
+      "source_location": "L39",
       "weight": 1.0,
       "_src": "app_app",
       "_tgt": "useexams_useexams",
@@ -1207,7 +1348,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L47",
+      "source_location": "L40",
       "weight": 1.0,
       "_src": "app_app",
       "_tgt": "usestudylog_usestudylog",
@@ -1219,7 +1360,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L48",
+      "source_location": "L41",
       "weight": 1.0,
       "_src": "app_app",
       "_tgt": "usechathistory_usechathistory",
@@ -1231,7 +1372,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\App.jsx",
-      "source_location": "L68",
+      "source_location": "L61",
       "weight": 1.0,
       "_src": "app_app",
       "_tgt": "usesocialstudy_usesocialstudy",
@@ -1242,7 +1383,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\AICompanion.jsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_aicompanion_jsx",
       "_tgt": "aicompanion_aicompanion",
@@ -1251,10 +1392,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\AICompanion.jsx",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "aicompanion_aicompanion",
+      "_tgt": "storage_safegetitem",
+      "source": "aicompanion_aicompanion",
+      "target": "storage_safegetitem"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ChatTab.jsx",
-      "source_location": "L12",
+      "source_location": "L14",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_ai_companion_chattab_jsx",
       "_tgt": "chattab_chattab",
@@ -1279,7 +1432,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\ai-companion\\ExplainTab.jsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_src": "explaintab_explaintab",
       "_tgt": "useai_useai",
@@ -1435,7 +1588,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "priorityengine_recommendtodaystopics",
@@ -1447,7 +1600,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L58",
+      "source_location": "L59",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "readiness_calculateoverallreadiness",
@@ -1459,7 +1612,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L59",
+      "source_location": "L60",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "readiness_masterycount",
@@ -1471,7 +1624,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "studyinsights_getstudystreak",
@@ -1483,7 +1636,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L66",
+      "source_location": "L67",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "datehelpers_greeting",
@@ -1495,7 +1648,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\dashboard\\Dashboard.jsx",
-      "source_location": "L68",
+      "source_location": "L69",
       "weight": 1.0,
       "_src": "dashboard_dashboard",
       "_tgt": "datehelpers_daysuntil",
@@ -1686,13 +1839,25 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\settings\\Settings.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_settings_settings_jsx",
       "_tgt": "settings_settingspage",
       "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_settings_settings_jsx",
       "target": "settings_settingspage",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\settings\\Settings.jsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "settings_settingspage",
+      "_tgt": "storage_safegetitem",
+      "source": "settings_settingspage",
+      "target": "storage_safegetitem"
     },
     {
       "relation": "contains",
@@ -1729,6 +1894,66 @@
       "_tgt": "datehelpers_daysuntil",
       "source": "daysremaining_daysremaining",
       "target": "datehelpers_daysuntil"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_shared_errorboundary_jsx",
+      "_tgt": "errorboundary_errorboundary",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_components_shared_errorboundary_jsx",
+      "target": "errorboundary_errorboundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "errorboundary_errorboundary",
+      "_tgt": "errorboundary_errorboundary_constructor",
+      "source": "errorboundary_errorboundary",
+      "target": "errorboundary_errorboundary_constructor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "errorboundary_errorboundary",
+      "_tgt": "errorboundary_errorboundary_getderivedstatefromerror",
+      "source": "errorboundary_errorboundary",
+      "target": "errorboundary_errorboundary_getderivedstatefromerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "errorboundary_errorboundary",
+      "_tgt": "errorboundary_errorboundary_componentdidcatch",
+      "source": "errorboundary_errorboundary",
+      "target": "errorboundary_errorboundary_componentdidcatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\components\\shared\\ErrorBoundary.jsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "errorboundary_errorboundary",
+      "_tgt": "errorboundary_errorboundary_render",
+      "source": "errorboundary_errorboundary",
+      "target": "errorboundary_errorboundary_render",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1806,7 +2031,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
       "_tgt": "useai_stripmarkdownjson",
@@ -1818,7 +2043,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
       "_tgt": "useai_getapikey",
@@ -1830,7 +2055,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L8",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
+      "_tgt": "useai_airequesterror",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
+      "target": "useai_airequesterror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
+      "_tgt": "useai_touseraierrormessage",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
+      "target": "useai_touseraierrormessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L34",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
       "_tgt": "useai_textfromresponse",
@@ -1842,7 +2091,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L12",
+      "source_location": "L38",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
       "_tgt": "useai_callanthropic",
@@ -1854,7 +2103,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L47",
+      "source_location": "L86",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useai_js",
       "_tgt": "useai_useai",
@@ -1866,7 +2115,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L13",
+      "source_location": "L39",
       "weight": 1.0,
       "_src": "useai_callanthropic",
       "_tgt": "useai_getapikey",
@@ -1878,7 +2127,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
-      "source_location": "L94",
+      "source_location": "L140",
       "weight": 1.0,
       "_src": "useai_useai",
       "_tgt": "useai_getapikey",
@@ -1887,10 +2136,34 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "_src": "useai_getapikey",
+      "_tgt": "storage_safegetitem",
+      "source": "useai_getapikey",
+      "target": "storage_safegetitem"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useAI.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "useai_airequesterror",
+      "_tgt": "useai_airequesterror_constructor",
+      "source": "useai_airequesterror",
+      "target": "useai_airequesterror_constructor",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useChatHistory.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usechathistory_js",
       "_tgt": "usechathistory_readstorage",
@@ -1902,7 +2175,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useChatHistory.js",
-      "source_location": "L14",
+      "source_location": "L8",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usechathistory_js",
       "_tgt": "usechathistory_usechathistory",
@@ -1911,10 +2184,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useChatHistory.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "usechathistory_readstorage",
+      "_tgt": "storage_safegetjson",
+      "source": "usechathistory_readstorage",
+      "target": "storage_safegetjson"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useexams_js",
       "_tgt": "useexams_uid",
@@ -1926,7 +2211,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useexams_js",
       "_tgt": "useexams_readstorage",
@@ -1938,7 +2223,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
-      "source_location": "L23",
+      "source_location": "L17",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_useexams_js",
       "_tgt": "useexams_useexams",
@@ -1947,10 +2232,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useExams.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_src": "useexams_readstorage",
+      "_tgt": "storage_safegetjson",
+      "source": "useexams_readstorage",
+      "target": "storage_safegetjson"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usesocialstudy_js",
       "_tgt": "usesocialstudy_uid",
@@ -1962,7 +2259,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usesocialstudy_js",
       "_tgt": "usesocialstudy_readstorage",
@@ -1974,7 +2271,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
-      "source_location": "L36",
+      "source_location": "L30",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usesocialstudy_js",
       "_tgt": "usesocialstudy_usesocialstudy",
@@ -1983,10 +2280,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useSocialStudy.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "usesocialstudy_readstorage",
+      "_tgt": "storage_safegetjson",
+      "source": "usesocialstudy_readstorage",
+      "target": "storage_safegetjson"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useStudyLog.js",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usestudylog_js",
       "_tgt": "usestudylog_readstorage",
@@ -1998,13 +2307,25 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useStudyLog.js",
-      "source_location": "L14",
+      "source_location": "L8",
       "weight": 1.0,
       "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usestudylog_js",
       "_tgt": "usestudylog_usestudylog",
       "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_hooks_usestudylog_js",
       "target": "usestudylog_usestudylog",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\hooks\\useStudyLog.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "usestudylog_readstorage",
+      "_tgt": "storage_safegetjson",
+      "source": "usestudylog_readstorage",
+      "target": "storage_safegetjson"
     },
     {
       "relation": "contains",
@@ -2109,8 +2430,8 @@
       "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\sprintGenerator.js",
       "source_location": "L41",
       "weight": 1.0,
-      "_src": "datehelpers_daysuntil",
-      "_tgt": "sprintgenerator_generatesprintblocks",
+      "_src": "sprintgenerator_generatesprintblocks",
+      "_tgt": "datehelpers_daysuntil",
       "source": "datehelpers_daysuntil",
       "target": "sprintgenerator_generatesprintblocks"
     },
@@ -2472,6 +2793,222 @@
       "_tgt": "sprintgenerator_toiso",
       "source": "sprintgenerator_toiso",
       "target": "sprintgenerator_generatesprintblocks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_emitwarning",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_emitwarning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_getstorage",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_getstoragewarningeventname",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_getstoragewarningeventname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_safegetitem",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_safegetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_safegetjson",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_safegetjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_safesetitem",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_safesetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_safesetjson",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_safesetjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "_tgt": "storage_safeclear",
+      "source": "d_masters_automation_engineering_memoraiz_exam_sprint_planner_src_utils_storage_js",
+      "target": "storage_safeclear",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "storage_safegetitem",
+      "_tgt": "storage_emitwarning",
+      "source": "storage_emitwarning",
+      "target": "storage_safegetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_src": "storage_safegetjson",
+      "_tgt": "storage_emitwarning",
+      "source": "storage_emitwarning",
+      "target": "storage_safegetjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "storage_safesetitem",
+      "_tgt": "storage_emitwarning",
+      "source": "storage_emitwarning",
+      "target": "storage_safesetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "storage_safesetjson",
+      "_tgt": "storage_emitwarning",
+      "source": "storage_emitwarning",
+      "target": "storage_safesetjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_src": "storage_safeclear",
+      "_tgt": "storage_emitwarning",
+      "source": "storage_emitwarning",
+      "target": "storage_safeclear",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "storage_safegetitem",
+      "_tgt": "storage_getstorage",
+      "source": "storage_getstorage",
+      "target": "storage_safegetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_src": "storage_safesetitem",
+      "_tgt": "storage_getstorage",
+      "source": "storage_getstorage",
+      "target": "storage_safesetitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "storage_safeclear",
+      "_tgt": "storage_getstorage",
+      "source": "storage_getstorage",
+      "target": "storage_safeclear",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_src": "storage_safegetjson",
+      "_tgt": "storage_safegetitem",
+      "source": "storage_safegetitem",
+      "target": "storage_safegetjson",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "D:\\Masters Automation Engineering\\MemorAIz\\exam-sprint-planner\\src\\utils\\storage.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "storage_safesetjson",
+      "_tgt": "storage_safesetitem",
+      "source": "storage_safesetitem",
+      "target": "storage_safesetjson",
       "confidence_score": 1.0
     },
     {

@@ -10,6 +10,7 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
   const [error, setError] = useState('');
   const [definitionForm, setDefinitionForm] = useState({ term: '', note: '' });
   const [selectedGroupId, setSelectedGroupId] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   const cards = useMemo(() => topic.aiContent?.flashcards || [], [topic.aiContent]);
 
@@ -30,7 +31,10 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
   };
 
   const shareToGroup = () => {
-    if (!selectedGroupId || cards.length === 0) return;
+    if (!selectedGroupId || cards.length === 0) {
+      setFeedback('Select a group before sharing.');
+      return;
+    }
     social.shareResource(selectedGroupId, {
       type: 'flashcards',
       title: `${topic.name} flashcards`,
@@ -38,6 +42,7 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
       author: userProfile.name,
       content: cards,
     });
+    setFeedback('Flashcard deck shared to study group.');
   };
 
   if (missingKey) return <div className="rounded-elem border border-warning/40 bg-warning/10 p-3 text-sm text-warning">Add your AI API key in Settings -&gt;</div>;
@@ -45,7 +50,7 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2">
-        <button className="rounded-elem bg-secondary/20 px-3 py-2 text-sm font-semibold text-secondary" onClick={generate}>
+        <button className="rounded-elem bg-secondary/20 px-3 py-2 text-sm font-semibold text-secondary disabled:cursor-not-allowed disabled:opacity-60" onClick={generate} disabled={loading}>
           {cards.length ? 'Regenerate' : 'Generate Flashcards'}
         </button>
         {social.groupsForUser.length > 0 && (
@@ -60,10 +65,17 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
                 <option key={group.id} value={group.id}>{group.name}</option>
               ))}
             </select>
-            <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={shareToGroup}>Share deck</button>
+            <button
+              className="rounded-elem border border-white/20 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+              onClick={shareToGroup}
+              disabled={!selectedGroupId || cards.length === 0}
+            >
+              Share deck
+            </button>
           </>
         )}
       </div>
+      {feedback && <p className="text-xs text-secondary">{feedback}</p>}
       {loading ? (
         <LoadingSkeleton lines={6} />
       ) : error ? (
@@ -108,13 +120,17 @@ export default function FlashcardTab({ topic, onSave, social, userProfile, addCu
               <button
                 className="rounded-elem bg-primary px-3 py-2 text-sm"
                 onClick={() => {
-                  if (!definitionForm.term.trim()) return;
+                  if (!definitionForm.term.trim()) {
+                    setFeedback('Definition name is required.');
+                    return;
+                  }
                   addCustomDefinition({
                     term: definitionForm.term.trim(),
                     note: definitionForm.note.trim(),
                     addedAt: new Date().toISOString(),
                   });
                   setDefinitionForm({ term: '', note: '' });
+                  setFeedback('Note saved to custom definitions.');
                 }}
               >
                 Save note

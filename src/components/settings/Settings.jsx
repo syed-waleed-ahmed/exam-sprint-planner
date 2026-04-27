@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { sanitizeTextInput, validateImportedBackup } from '../../utils/security';
+import { safeClear, safeGetJson, safeGetItem, safeSetItem, safeSetJson } from '../../utils/storage';
 
 export default function SettingsPage({
   userProfile,
@@ -10,30 +11,41 @@ export default function SettingsPage({
   notificationPermission,
   enableNotifications,
 }) {
-  const [apiKey, setApiKey] = useState(localStorage.getItem('openai_api_key') || '');
+  const [apiKey, setApiKey] = useState(safeGetItem('openai_api_key', '', 'settings:api-key:init'));
   const [confirmClear, setConfirmClear] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
   const fileRef = useRef(null);
+
+  const showStatus = (type, message) => {
+    setStatus({ type, message });
+  };
 
   const saveApiKey = () => {
     const value = apiKey.trim();
-    localStorage.setItem('openai_api_key', value);
+    const saved = safeSetItem('openai_api_key', value, 'settings:api-key:save');
+    showStatus(saved ? 'success' : 'error', saved ? (value ? 'API key saved.' : 'API key cleared.') : 'Could not save API key. Check browser storage settings.');
   };
 
   const clearAll = () => {
-    localStorage.clear();
+    const cleared = safeClear('settings:clear-all');
+    if (!cleared) {
+      showStatus('error', 'Could not clear local storage.');
+      return;
+    }
     setStudyLog([]);
     window.location.reload();
   };
 
   const exportData = () => {
     const data = {
-      userProfile: JSON.parse(localStorage.getItem('userProfile') || '{}'),
-      exams: JSON.parse(localStorage.getItem('exams') || '[]'),
-      studyLog: JSON.parse(localStorage.getItem('studyLog') || '[]'),
-      chatHistory: JSON.parse(localStorage.getItem('chatHistory') || '[]'),
-      sprintPlans: JSON.parse(localStorage.getItem('sprint_plans') || '{}'),
-      socialStudyHub: JSON.parse(localStorage.getItem('socialStudyHub') || '{}'),
-      cloudSnapshot: JSON.parse(localStorage.getItem('exam_sprint_cloud_snapshot') || '{}'),
+      userProfile: safeGetJson('userProfile', {}, 'settings:export:user-profile'),
+      exams: safeGetJson('exams', [], 'settings:export:exams'),
+      studyLog: safeGetJson('studyLog', [], 'settings:export:study-log'),
+      chatHistory: safeGetJson('chatHistory', [], 'settings:export:chat-history'),
+      sprintPlans: safeGetJson('sprint_plans', {}, 'settings:export:sprint-plans'),
+      socialStudyHub: safeGetJson('socialStudyHub', {}, 'settings:export:social'),
+      cloudSnapshot: safeGetJson('exam_sprint_cloud_snapshot', {}, 'settings:export:cloud-snapshot'),
+      syncMeta: safeGetJson('exam_sprint_sync_meta', {}, 'settings:export:sync-meta'),
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -42,6 +54,7 @@ export default function SettingsPage({
     a.download = 'exam-sprint-planner-backup.json';
     a.click();
     URL.revokeObjectURL(url);
+    showStatus('success', 'Backup exported as JSON.');
   };
 
   const importData = async (file) => {
@@ -52,16 +65,23 @@ export default function SettingsPage({
       if (!validateImportedBackup(data)) {
         throw new Error('Invalid backup structure');
       }
-      if (data.userProfile) localStorage.setItem('userProfile', JSON.stringify(data.userProfile));
-      if (data.exams) localStorage.setItem('exams', JSON.stringify(data.exams));
-      if (data.studyLog) localStorage.setItem('studyLog', JSON.stringify(data.studyLog));
-      if (data.chatHistory) localStorage.setItem('chatHistory', JSON.stringify(data.chatHistory));
-      if (data.sprintPlans) localStorage.setItem('sprint_plans', JSON.stringify(data.sprintPlans));
-      if (data.socialStudyHub) localStorage.setItem('socialStudyHub', JSON.stringify(data.socialStudyHub));
-      if (data.cloudSnapshot) localStorage.setItem('exam_sprint_cloud_snapshot', JSON.stringify(data.cloudSnapshot));
+      const writes = [];
+      if (data.userProfile) writes.push(safeSetJson('userProfile', data.userProfile, 'settings:import:user-profile'));
+      if (data.exams) writes.push(safeSetJson('exams', data.exams, 'settings:import:exams'));
+      if (data.studyLog) writes.push(safeSetJson('studyLog', data.studyLog, 'settings:import:study-log'));
+      if (data.chatHistory) writes.push(safeSetJson('chatHistory', data.chatHistory, 'settings:import:chat-history'));
+      if (data.sprintPlans) writes.push(safeSetJson('sprint_plans', data.sprintPlans, 'settings:import:sprint-plans'));
+      if (data.socialStudyHub) writes.push(safeSetJson('socialStudyHub', data.socialStudyHub, 'settings:import:social'));
+      if (data.cloudSnapshot) writes.push(safeSetJson('exam_sprint_cloud_snapshot', data.cloudSnapshot, 'settings:import:cloud-snapshot'));
+      if (data.syncMeta) writes.push(safeSetJson('exam_sprint_sync_meta', data.syncMeta, 'settings:import:sync-meta'));
+      if (writes.some((ok) => !ok)) {
+        showStatus('error', 'Import partially failed due to browser storage limits.');
+        return;
+      }
+      showStatus('success', 'Backup imported. Reloading...');
       window.location.reload();
     } catch {
-      alert('Invalid JSON backup file.');
+      showStatus('error', 'Invalid JSON backup file. Please choose a valid planner backup.');
     }
   };
 
@@ -69,6 +89,9 @@ export default function SettingsPage({
     <section className="space-y-4">
       <div className="glass-card p-4">
         <h2 className="text-2xl font-bold">Settings</h2>
+        {status.message && (
+          <p className={`mt-2 text-sm ${status.type === 'error' ? 'text-danger' : 'text-success'}`}>{status.message}</p>
+        )}
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">

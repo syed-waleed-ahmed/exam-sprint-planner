@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react';
+import { safeGetJson, safeSetJson } from '../utils/storage';
 
 const STORAGE_KEY = 'chatHistory';
 
-const readStorage = () => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
+const readStorage = () => safeGetJson(STORAGE_KEY, [], 'chat-history:read');
 
 export function useChatHistory() {
   const [chatHistory, setChatHistory] = useState(readStorage);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(chatHistory));
+    safeSetJson(STORAGE_KEY, chatHistory, 'chat-history:save');
   }, [chatHistory]);
 
   const getTopicMessages = (topicId) => {

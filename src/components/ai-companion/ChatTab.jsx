@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { marked } from 'marked';
 import { safeMarkdownSource, sanitizeMultilineInput } from '../../utils/security';
+import { safeGetItem } from '../../utils/storage';
+import { toUserAIErrorMessage } from '../../hooks/useAI';
 
 const starters = [
   'Explain this topic simply',
@@ -36,7 +38,7 @@ export default function ChatTab({ topic, chat, missingKey }) {
   }, [messages, isLoading]);
 
   const sendMessage = async (userMessage) => {
-    const apiKey = localStorage.getItem('openai_api_key');
+    const apiKey = safeGetItem('openai_api_key', '', 'chat:api-key');
 
     if (!apiKey) {
       setMessages((prev) => [
@@ -78,8 +80,16 @@ export default function ChatTab({ topic, chat, missingKey }) {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error?.message || `HTTP error! status: ${response.status}`);
+        let message = `HTTP error ${response.status}`;
+        if (response.status === 429) {
+          message = 'Rate limit reached. Please wait a moment and retry.';
+        } else if (response.status >= 500) {
+          message = 'AI service is temporarily unavailable. Please try again shortly.';
+        } else {
+          const errorData = await response.json();
+          message = errorData.error?.message || message;
+        }
+        throw new Error(message);
       }
 
       const data = await response.json();
@@ -92,10 +102,7 @@ export default function ChatTab({ topic, chat, missingKey }) {
         { role: 'assistant', content: assistantMessage },
       ]);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : (typeof error === 'object' ? JSON.stringify(error) : String(error));
+      const errorMessage = toUserAIErrorMessage(error);
 
       setMessages((prev) => [
         ...prev,

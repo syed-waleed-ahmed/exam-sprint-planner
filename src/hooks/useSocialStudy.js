@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { safeGetJson, safeSetJson } from '../utils/storage';
 
 const STORAGE_KEY = 'socialStudyHub';
 
@@ -24,20 +25,13 @@ const initialState = {
   ],
 };
 
-const readStorage = () => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : initialState;
-  } catch {
-    return initialState;
-  }
-};
+const readStorage = () => safeGetJson(STORAGE_KEY, initialState, 'social:read');
 
 export function useSocialStudy(userName) {
   const [socialState, setSocialState] = useState(readStorage);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(socialState));
+    safeSetJson(STORAGE_KEY, socialState, 'social:save');
   }, [socialState]);
 
   const createGroup = ({ name, focusTopic, nextSessionAt }) => {

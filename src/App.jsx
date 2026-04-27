@@ -15,6 +15,7 @@ import { useStudyLog } from './hooks/useStudyLog';
 import { useChatHistory } from './hooks/useChatHistory';
 import { useSocialStudy } from './hooks/useSocialStudy';
 import { getSmartReminders } from './utils/studyInsights';
+import { getStorageWarningEventName, safeGetItem, safeGetJson, safeSetItem, safeSetJson } from './utils/storage';
 
 const defaultProfile = {
   name: 'Learner',
@@ -34,42 +35,45 @@ const defaultProfile = {
 const CLOUD_KEY = 'exam_sprint_cloud_snapshot';
 const SYNC_KEY = 'exam_sprint_sync_meta';
 
-const readJson = (key, fallback) => {
-  try {
-    return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
-  } catch {
-    return fallback;
-  }
-};
-
 export default function App() {
   const { exams, addExam, deleteExam, addTopic, updateTopic, markReviewed, deleteTopic, setTopicStatus, setTopicAiContent, addCustomDefinition, logTopicPerformance, sprintPlans, updateSprintPlan } = useExams();
   const { studyLog, logSession, logMood, setStudyLog } = useStudyLog();
   const chat = useChatHistory();
 
-  const [userProfile, setUserProfile] = useState(() => {
-    try {
-      return { ...defaultProfile, ...(JSON.parse(localStorage.getItem('userProfile')) || {}) };
-    } catch {
-      return defaultProfile;
-    }
-  });
+  const [userProfile, setUserProfile] = useState(() => ({
+    ...defaultProfile,
+    ...(safeGetJson('userProfile', {}, 'profile:init') || {}),
+  }));
 
   const [navOpen, setNavOpen] = useState(false);
   const [addExamOpen, setAddExamOpen] = useState(false);
   const [timerTopic, setTimerTopic] = useState(null);
   const [activeTopic, setActiveTopic] = useState(null);
   const [isOnline, setIsOnline] = useState(() => window.navigator.onLine);
-  const [syncMeta, setSyncMeta] = useState(() => readJson(SYNC_KEY, { lastSyncedAt: '', source: 'local', status: 'idle' }));
+  const [syncMeta, setSyncMeta] = useState(() =>
+    safeGetJson(SYNC_KEY, { lastSyncedAt: '', source: 'local', status: 'idle' }, 'sync-meta:init')
+  );
   const [notificationPermission, setNotificationPermission] = useState(() => window.Notification?.permission || 'default');
+  const [storageWarning, setStorageWarning] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
   const social = useSocialStudy(userProfile.name);
 
   useEffect(() => {
-    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    safeSetJson('userProfile', userProfile, 'profile:save');
   }, [userProfile]);
+
+  useEffect(() => {
+    const eventName = getStorageWarningEventName();
+    const onWarning = (event) => {
+      const nextMessage = event?.detail?.message || 'A storage issue occurred. Some changes may not persist.';
+      setStorageWarning(nextMessage);
+      setTimeout(() => setStorageWarning(''), 5000);
+    };
+    window.addEventListener(eventName, onWarning);
+    return () => window.removeEventListener(eventName, onWarning);
+  }, []);
 
   useEffect(() => {
     const onOnline = () => setIsOnline(true);
@@ -113,14 +117,14 @@ export default function App() {
     if (!userProfile.syncEnabled) return;
 
     const updatedAt = new Date().toISOString();
-    localStorage.setItem(CLOUD_KEY, JSON.stringify({ ...syncPayload, updatedAt }));
+    safeSetJson(CLOUD_KEY, { ...syncPayload, updatedAt }, 'sync:cloud-snapshot');
     const nextMeta = {
       lastSyncedAt: updatedAt,
       source: isOnline ? 'cloud-ready local mirror' : 'offline queue',
       status: isOnline ? 'synced' : 'queued',
     };
     setSyncMeta(nextMeta);
-    localStorage.setItem(SYNC_KEY, JSON.stringify(nextMeta));
+    safeSetJson(SYNC_KEY, nextMeta, 'sync:meta');
   }, [syncPayload, userProfile.syncEnabled, isOnline]);
 
   useEffect(() => {
@@ -141,12 +145,12 @@ export default function App() {
   useEffect(() => {
     if (!userProfile.notificationsEnabled || !window.Notification || notificationPermission !== 'granted') return;
     const today = new Date().toISOString().slice(0, 10);
-    const lastShown = localStorage.getItem('exam_sprint_last_notification');
+    const lastShown = safeGetItem('exam_sprint_last_notification', '', 'notifications:last-shown');
     if (!reminders.length || lastShown === today) return;
 
     const topReminder = reminders[0];
     new window.Notification(topReminder.title, { body: topReminder.detail });
-    localStorage.setItem('exam_sprint_last_notification', today);
+    safeSetItem('exam_sprint_last_notification', today, 'notifications:last-shown');
   }, [reminders, userProfile.notificationsEnabled, notificationPermission]);
 
   const enableNotifications = async () => {
@@ -240,6 +244,11 @@ export default function App() {
         />
 
         <div className="page-shell">
+          {storageWarning && (
+            <div className="mb-3 rounded-elem border border-warning/40 bg-warning/10 p-3 text-sm text-warning">
+              {storageWarning}
+            </div>
+          )}
           <Routes>
             <Route path="/" element={<Dashboard {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />
             <Route path="/exams" element={<ExamList {...ctx} onStudyTopic={(topic) => { setActiveTopic(topic); navigate('/ai'); }} />} />

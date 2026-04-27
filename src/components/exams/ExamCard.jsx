@@ -14,6 +14,21 @@ const cycleStatus = {
 export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTopic, deleteTopic, updateTopic, setTopicStatus, onStudyTopic }) {
   const [topicName, setTopicName] = useState('');
   const [difficulty, setDifficulty] = useState(2);
+  const [topicNameError, setTopicNameError] = useState('');
+  const [confirmDeleteExam, setConfirmDeleteExam] = useState(false);
+  const [topicToDelete, setTopicToDelete] = useState(null);
+  const [editTopicDraft, setEditTopicDraft] = useState(null);
+
+  const submitTopicEdit = () => {
+    if (!editTopicDraft) return;
+    const safeName = sanitizeTextInput(editTopicDraft.name, 120);
+    if (!safeName) {
+      setEditTopicDraft((prev) => ({ ...prev, error: 'Topic name is required.' }));
+      return;
+    }
+    updateTopic(exam.id, editTopicDraft.topicId, { name: safeName });
+    setEditTopicDraft(null);
+  };
 
   return (
     <article className="glass-card p-4">
@@ -32,9 +47,27 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
           <button className="btn-ghost" onClick={() => onToggle(exam.id)}>{expanded ? 'Close' : 'Open'}</button>
-          <button className="btn-base bg-danger/20 text-danger hover:bg-danger/25" onClick={() => onDeleteExam(exam.id)}>Delete</button>
+          <button className="btn-base bg-danger/20 text-danger hover:bg-danger/25" onClick={() => setConfirmDeleteExam(true)}>Delete</button>
         </div>
       </div>
+
+      {confirmDeleteExam && (
+        <div className="mt-3 rounded-elem border border-danger/40 bg-danger/10 p-3">
+          <p className="text-sm">Delete this exam and all topics?</p>
+          <div className="mt-2 flex gap-2">
+            <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => setConfirmDeleteExam(false)}>Cancel</button>
+            <button
+              className="rounded-elem bg-danger px-3 py-2 text-sm"
+              onClick={() => {
+                onDeleteExam(exam.id);
+                setConfirmDeleteExam(false);
+              }}
+            >
+              Yes, delete exam
+            </button>
+          </div>
+        </div>
+      )}
 
       {expanded && (
         <div className="mt-4 space-y-3">
@@ -43,12 +76,10 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
               key={topic.id}
               exam={exam}
               topic={topic}
-              onEdit={(examId, topicId) => {
-                const nextName = prompt('Edit topic name', topic.name);
-                if (!nextName) return;
-                updateTopic(examId, topicId, { name: sanitizeTextInput(nextName, 120) });
+              onEdit={(_, topicId) => {
+                setEditTopicDraft({ topicId, name: topic.name, error: '' });
               }}
-              onDelete={deleteTopic}
+              onDelete={(_, topicId) => setTopicToDelete(topicId)}
               onStudy={(xExam, xTopic) =>
                 onStudyTopic({ ...xTopic, examId: xExam.id, examName: xExam.name, subject: xExam.subject, examDate: xExam.examDate })
               }
@@ -60,7 +91,15 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
           ))}
 
           <div className="grid gap-2 rounded-elem border border-dashed border-white/20 p-3 sm:grid-cols-2 xl:grid-cols-4">
-            <input className="input-base sm:col-span-2 xl:col-span-2" placeholder="Add topic" value={topicName} onChange={(e) => setTopicName(e.target.value)} />
+            <input
+              className="input-base sm:col-span-2 xl:col-span-2"
+              placeholder="Add topic"
+              value={topicName}
+              onChange={(e) => {
+                setTopicName(e.target.value);
+                if (topicNameError) setTopicNameError('');
+              }}
+            />
             <select className="input-base" value={difficulty} onChange={(e) => setDifficulty(Number(e.target.value))}>
               <option value={1}>Easy</option>
               <option value={2}>Medium</option>
@@ -70,14 +109,55 @@ export default function ExamCard({ exam, expanded, onToggle, onDeleteExam, addTo
               className="btn-primary"
               onClick={() => {
                 const safeName = sanitizeTextInput(topicName, 120);
-                if (!safeName) return;
+                if (!safeName) {
+                  setTopicNameError('Topic name is required.');
+                  return;
+                }
                 addTopic(exam.id, safeName, difficulty);
                 setTopicName('');
+                setTopicNameError('');
               }}
             >
               Add Topic
             </button>
           </div>
+          {topicNameError && <p className="text-xs text-danger">{topicNameError}</p>}
+
+          {editTopicDraft && (
+            <div className="rounded-elem border border-white/20 bg-slate-900/70 p-3">
+              <p className="text-sm font-semibold">Edit topic</p>
+              <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                <input
+                  className="input-base w-full"
+                  value={editTopicDraft.name}
+                  onChange={(e) => setEditTopicDraft((prev) => ({ ...prev, name: e.target.value, error: '' }))}
+                />
+                <div className="flex gap-2">
+                  <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => setEditTopicDraft(null)}>Cancel</button>
+                  <button className="rounded-elem bg-primary px-3 py-2 text-sm" onClick={submitTopicEdit}>Save</button>
+                </div>
+              </div>
+              {editTopicDraft.error && <p className="mt-2 text-xs text-danger">{editTopicDraft.error}</p>}
+            </div>
+          )}
+
+          {topicToDelete && (
+            <div className="rounded-elem border border-danger/40 bg-danger/10 p-3">
+              <p className="text-sm">Delete this topic?</p>
+              <div className="mt-2 flex gap-2">
+                <button className="rounded-elem border border-white/20 px-3 py-2 text-sm" onClick={() => setTopicToDelete(null)}>Cancel</button>
+                <button
+                  className="rounded-elem bg-danger px-3 py-2 text-sm"
+                  onClick={() => {
+                    deleteTopic(exam.id, topicToDelete);
+                    setTopicToDelete(null);
+                  }}
+                >
+                  Yes, delete topic
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </article>

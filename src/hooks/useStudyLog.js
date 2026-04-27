@@ -1,21 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
+import { safeGetJson, safeSetJson } from '../utils/storage';
 
 const STORAGE_KEY = 'studyLog';
 
-const readStorage = () => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-};
+const readStorage = () => safeGetJson(STORAGE_KEY, [], 'study-log:read');
 
 export function useStudyLog() {
   const [studyLog, setStudyLog] = useState(readStorage);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(studyLog));
+    safeSetJson(STORAGE_KEY, studyLog, 'study-log:save');
   }, [studyLog]);
 
   const logSession = (entry) => {

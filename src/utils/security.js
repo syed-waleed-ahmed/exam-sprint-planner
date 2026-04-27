@@ -49,6 +49,7 @@ export function validateImportedBackup(data) {
     'sprintPlans',
     'socialStudyHub',
     'cloudSnapshot',
+    'syncMeta',
   ];
 
   return Object.keys(data).every((key) => allowedTopLevel.includes(key));
